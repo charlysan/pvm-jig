@@ -1,0 +1,2 @@
+dumps/** export-ignore
+docs/*.pdf export-ignore
