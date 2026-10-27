@@ -5,14 +5,14 @@
 Read and adjust the **service settings of Sony PVM monitors** from a computer, through the I2C
 service header, using an Arduino Nano.
 
-Geometry, white balance, sub-brightness, sync timing and every other service-menu item can be
-changed live on the VDP (if present), saved to the EEPROM, backed up and restored, without opening the service menu.
+Geometry, white balance, sub-brightness, sync timing and every other service and user menu item can be
+changed, saved to the EEPROM, backed up and restored, without opening the service menu.
 
 > **Disclaimer.** This is an experimental hobby project, shared as it is, with no warranty of
 > any kind. A CRT monitor has lethal voltages inside, and the service manual warns that the chassis
 > can be connected to the AC line. Some service settings (vertical size, beam current, drive levels)
 > can damage the tube or the deflection if set wrong. Work at your own risk. The author accepts no
-> responsibility for any damage or loss that results.
+> responsibility for any injury, damage or loss that results.
 
 
 ## Table of contents
