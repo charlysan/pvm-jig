@@ -108,11 +108,16 @@ python3 -m venv .venv
 .venv/bin/python host/pvm-jig.py info
 ```
 
-Or without the repo: each GitHub release has `pvm-jig-host-<version>.zip` (the host tools),
-`pvm-jig-mister-<version>.zip` (for a MiSTer, see [mister.md](./mister.md)) and
-`pvm-jig-firmware-<version>.zip` (the compiled hex for the classic Nano, with the sketch; how to flash it
-is in its `readme.txt`). Unzip the host zip, then `pip install -r pvm-jig/requirements.txt` and run
-`python3 pvm-jig/pvm-jig.py info`.
+You can download latest [release](https://github.com/charlysan/pvm-jig/releases) from the repo. Each GitHub release has:
+- `pvm-jig-host-<version>.zip` (the host tools),
+- `pvm-jig-mister-<version>.zip` (for a MiSTer, see [mister.md](./mister.md)) and
+- `pvm-jig-firmware-<version>.zip` (the compiled hex for the classic Nano, with the sketch; how to flash it
+is in its `readme.txt`). 
+
+Unzip the host zip, then `pip install -r pvm-jig/requirements.txt` and run 
+```
+python3 pvm-jig/pvm-jig.py info
+```
 
 Back up the EEPROM before anything else:
 
