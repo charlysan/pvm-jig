@@ -1,0 +1,874 @@
+# Sony PVM-14N2U (MCU CXP85220A-027S, VDP3108, EEPROM ST24C04). Source: register_map.md.
+#
+# eeprom = { at, size (1|2, little-endian), bits = [hi, lo] }
+# vdp    = { fp = addr } | { reg = sub, size = 1|2 (big-endian), readable = true, bits = [hi, lo] }
+# menu   = service-menu number (Ver 1.x), shown after the label
+# signed = true | <bits>: show the decimal value as two's complement (true = the item's width)
+# osd    = { offset, shift, hex }: on-screen value = (raw >> shift) - offset
+# when   = "input=video" | "input=rgb" | "field=60" | "field=50": the VDP target only applies in that
+#          context; live when [context] matches (read once per BINT session), else EEPROM-only.
+# refresh = false: the MCU writes this VDP value only on change (not in its 1.3 s refresh)
+# latch  = item key to rewrite after this one (white drive: R/G only take effect after WDB is written).
+# min / max = safe range in the item's decimal units (signed for signed items); values outside need --force
+#          (CLI) or a confirmation (panel).
+# danger = { level = "high" | "medium" | "low", text }: name coloured in the panel, text shown before risky writes.
+# help   = what the item does (manual ITEM column + datasheet), shown as the item's tooltip and by `pvm get`.
+# [context]: how to find the active input (EEPROM byte) and line rate (FP value below/above a limit).
+# Items without vdp are EEPROM-only, unless a [calc] uses them (the MCU calculates the VDP values).
+# A model for another firmware can start with base = "<file>.toml" and list only what differs.
+
+[model]
+name = "Sony PVM-14N2U"
+mcu = "CXP85220A-027S"
+firmware = "1.x"
+vdp = 0x45
+eeprom = 0x50
+protect = [0xFF]
+
+[context]
+input = { eeprom = 0x1E, map = { "0" = "video", "1" = "video", "2" = "rgb" } }
+field = { fp = 0x0EB, below = 287, then = "60", else = "50" }
+
+# Raw writes to these registers need --force (CLI) / a confirmation (panel).
+[danger_regs]
+"reg 15" = "Horizontal drive control (MCU constant 0x4768): H drive pulse width, H PLL enable, vertical protection. A wrong value can destroy the horizontal output transistor / flyback or disable the tube protection."
+"fp 08B" = "Vertical sawtooth A0: written by the MCU from the geometry items; must match DSCV (FP 08F)."
+"fp 08C" = "Vertical sawtooth A1 (slope = vertical size): near 0 collapses the vertical and can burn a line into the phosphor."
+"fp 08F" = "DSCV, vertical retrace level: must equal A0 (FP 08B)."
+"fp 0D3" = "BCLG, beam current limiter gain: bit 11 must stay 1; low values weaken the limiter."
+
+# --- calculated VDP values (register_map.md) ---
+# One [calc.<name>] per VDP value the MCU computes from several EEPROM items.
+# target: fp = addr | reg = sub (size = 1|2, readable = true); a list for kind = "matrix".
+# expr:   formula over item keys (+ - * / // % round min max abs). Each key is that item's EEPROM value,
+#         two's complement if the item is signed. let.<name> = helper values, evaluated in order first.
+# kind = "matrix": datasheet Table 3-3, target[i] = sum(weights[field][i][j] * terms[j]) (terms are formulas).
+#         round = "each": round every product (halves away from zero) before summing, as the MCU does;
+#         default: round the sum.
+# bits:   result width, masked (default 16). when: as on items. uses: extra items for a calc without a formula.
+# live = false: not written live (formula untested live, or not known: no expr); items that feed it stay
+#         EEPROM-only and the MCU applies them on release. mirror: also write that FP (DSCV = A0).
+# save_a0: EEPROM word where the MCU stores the computed A0 on SAVE. note: about the formula (shown on the
+#         panel's "live calc" checkbox).
+# Changing an item rewrites every calc that names it.
+
+[calc.vertical]
+kind = "matrix"
+round = "each"
+fp = [0x08B, 0x08C, 0x08D, 0x08E]
+bits = 12
+mirror = { "0x08B" = 0x08F }
+save_a0 = 0x6E
+terms = ["v_po + 1", "v_size / 128", "v_lin_down / 128", "v_line_up / 128"]
+weights."60" = [[1, -1365, 683, -683], [0, 1084, -1090, 1646], [0, 0, 430, -1306], [0, 0, 0, 1024]]
+weights."50" = [[1, -1365, 683, -683], [0, 900, -904, 1363], [0, 0, 296, -898], [0, 0, 0, 586]]
+note = "Integer weights and each product rounded, both with halves away from zero. Exact at 60 and 50 Hz (tools/calcheck.py, 10-24)."
+
+[calc.ew]
+kind = "matrix"
+round = "each"
+fp = [0x09B, 0x09C, 0x09D, 0x09E, 0x09F]
+bits = 12
+terms = ["h_size + 1", "pin_phase / 128", "pin_amp / 128", "h_sexy_pin / 128", "h_cor_pin / 128"]
+weights."60" = [[1, -341, 1365, -85, 341], [0, 135, -1084, 102, -549], [0, 0, 849, -161, 1306], [0, 0, 0, 126, -2047], [0, 0, 0, 0, 1585]]
+weights."50" = [[1, -341, 1365, -85, 341], [0, 112, -900, 85, -455], [0, 0, 587, -111, 898], [0, 0, 0, 72, -1172], [0, 0, 0, 0, 757]]
+note = "Integer weights and each product rounded, both with halves away from zero. Exact at 60 and 50 Hz (tools/calcheck.py, 10-24); 60 Hz A1 first weight 134 or 135 not decided."
+
+[calc.ibr]
+fp = 0x0F9
+expr = "video_sbrt + 4 * (brightness - 50)"
+live = false
+
+[calc.abr]
+fp = 0x0FA
+expr = "rgb_sbrt + 4 * (brightness - 50)"
+live = false
+
+[calc.act]
+fp = 0x0FB
+let.lo = "round(rgb_cont * 81 / 256)"
+expr = "lo + (rgb_cont - lo) * contrast // 100"
+live = false
+note = "RGB CONT is 9 bits (0x200 gave ACT 0): check how the MCU masks it."
+
+[calc.ctm]
+reg = 0x61
+size = 1
+expr = "20 + 43 * contrast // 100"
+live = false
+
+[calc.tint]
+fp = 0x01C
+bits = 12
+expr = "tint + 4 * (phase - 50)"
+live = false
+note = "Trap mode (NTSC). Comb mode uses another base (A8?), untested."
+
+[calc.matrix]
+reg = [0x74, 0x6C, 0x64, 0x5C]
+size = 2
+uses = ["contrast", "chroma", "chroma_center"]
+live = false
+note = "Colour matrix MR2M/MG1M/MG2M/MB1M. Known: contrast only via CTM; coef = trunc(M x chroma / 100); cap = fixed 192/-48/-96/253 when MB1M > 253. Open: M from CTM and service CHROMA (register_map.md)."
+
+# --- user settings (written by the MCU on every change, no SAVE) ---
+
+[items.volume]
+osd = { offset = 0 }
+label = "VOLUME"
+group = "user"
+eeprom = { at = 0x10 }
+help = "Audio volume (user menu). Drives the audio level directly from the MCU, not through the video processor."
+
+[items.contrast]
+osd = { offset = 0 }
+label = "CONTRAST"
+group = "user"
+eeprom = { at = 0x11 }
+help = "Picture contrast (user menu). Sets the VDP contrast (ACT on the RGB input, CTM) and scales the colour matrix."
+
+[items.brightness]
+osd = { offset = 50 }
+label = "BRIGHTNESS"
+group = "user"
+eeprom = { at = 0x12 }
+help = "Picture brightness (user menu). Added to the sub-brightness to give the VDP's brightness (IBR/ABR)."
+
+[items.chroma]
+osd = { offset = 50 }
+label = "CHROMA"
+group = "user"
+eeprom = { at = 0x13 }
+help = "Colour saturation (user menu), centred on 0. Scales the colour matrix together with contrast; capped by the MCU."
+
+[items.phase]
+osd = { offset = 50 }
+label = "PHASE"
+group = "user"
+eeprom = { at = 0x14 }
+help = "Hue / tint for NTSC (user menu), centred on 0. Sets the VDP tint angle (TINT)."
+
+[items.system]
+label = "SYSTEM"
+group = "user"
+eeprom = { at = 0x1C }
+help = "Colour system / line standard selection: 00 auto, 01 525/60, 02 625/50."
+
+[items.color_select]
+label = "COLOR SELECT"
+group = "user"
+eeprom = { at = 0x15 }
+help = "Colour standard (user menu): 00 auto, 01 NTSC comb, 05 SECAM seen; 02 NTSC, 03 NTSC443, 04 PAL probably (menu order). Sets VDP reg 34 (comb = 03); SECAM also forces 625/50 timing. Probably applied on BINT release (0x15 is in the reload's 0x10 read; untested)."
+
+[items.input]
+label = "INPUT"
+group = "user"
+eeprom = { at = 0x1E }
+help = "Selected input: 00 LINE A, 01 LINE B, 02 RGB."
+
+[items.prev_input]
+label = "PREV INPUT"
+group = "user"
+eeprom = { at = 0x1F }
+help = "The input selected before the current one (used to toggle back), same encoding as INPUT."
+
+[items.model]
+label = "MODEL"
+menu = 63
+group = "user"
+eeprom = { at = 0x00 }
+min = 1
+max = 1
+danger = { level = "medium", text = "0 tells the MCU this unit has no RGB input: after the next power-on or reload the RGB input may be unavailable. Keep 1 on a PVM-14N2U with RGB." }
+help = "Model selection (service 63): 1 = model with the RGB input, 0 = without. Read by the MCU at power-on; no VDP effect."
+
+# --- picture processing (packed registers) ---
+
+[items.pkun]
+label = "PKUN"
+menu = 0
+group = "picture"
+eeprom = { at = 0x36, size = 2, bits = [3, 0] }
+vdp = { reg = 0x69, size = 2, bits = [3, 0] }
+help = "Luma peaking level for undershoots (sharpness of dark edges). Manual: peaking level undershoot."
+
+[items.pkov]
+label = "PKOV"
+menu = 1
+group = "picture"
+eeprom = { at = 0x36, size = 2, bits = [7, 4] }
+vdp = { reg = 0x69, size = 2, bits = [7, 4] }
+help = "Luma peaking level for overshoots (sharpness of bright edges). Manual: peaking level overshoot."
+
+[items.cpkv]
+label = "CPKV"
+menu = 2
+group = "picture"
+eeprom = { at = 0x32, size = 2, bits = [4, 0] }
+vdp = { reg = 0x72, size = 2, bits = [4, 0] }
+help = "Chroma peaking for red (R-Y): transient improvement of colour edges."
+
+[items.ccor]
+label = "CCOR"
+menu = 3
+group = "picture"
+eeprom = { at = 0x32, size = 2, bits = [8, 5] }
+vdp = { reg = 0x72, size = 2, bits = [8, 5] }
+help = "Coring level for chroma peaking: noise threshold below which chroma peaking isn't applied."
+
+[items.cpku]
+label = "CPKU"
+menu = 4
+group = "picture"
+eeprom = { at = 0x34, size = 2, bits = [4, 0] }
+vdp = { reg = 0x7A, size = 2, bits = [4, 0] }
+help = "Chroma peaking for blue (B-Y): transient improvement of colour edges."
+
+[items.cfs]
+label = "CFS"
+menu = 5
+group = "picture"
+eeprom = { at = 0x34, size = 2, bits = [8, 8] }
+vdp = { reg = 0x7A, size = 2, bits = [8, 8] }
+help = "Chroma trap filter characteristic: broad or narrow (NTSC, PAL, SECAM)."
+
+[items.video_sbrt]
+label = "VIDEO S-BRT"
+menu = 13
+group = "picture"
+eeprom = { at = 0x4E, size = 2 }
+min = 192
+max = 320
+danger = { level = "medium", text = "A high black level raises the beam current. Too much beam current can burn the phosphor, wear the cathodes and overload the high-voltage supply." }
+help = "Sub-brightness for the video inputs: factory black-level offset that user brightness is added to."
+
+[items.rgb_sbrt]
+label = "RGB S-BRT"
+menu = 14
+group = "picture"
+eeprom = { at = 0x50, size = 2 }
+min = 192
+max = 320
+danger = { level = "medium", text = "A high black level raises the beam current. Too much beam current can burn the phosphor, wear the cathodes and overload the high-voltage supply." }
+help = "Sub-brightness for the RGB input: factory black-level offset that user brightness is added to."
+
+[items.rgb_cont]
+label = "RGB CONT"
+menu = 15
+group = "picture"
+eeprom = { at = 0x52, size = 2 }
+max = 352
+danger = { level = "medium", text = "Too much beam current can burn the phosphor, wear the cathodes and overload the high-voltage supply." }
+help = "RGB maximum contrast: factory setting for the top of the contrast range on the RGB input. 9 bits: 0x200 gives ACT 0, keep it at 0x1FF or below."
+
+[items.tint]
+label = "TINT"
+menu = 34
+group = "picture"
+eeprom = { at = 0x7E, size = 2, bits = [11, 0] }
+signed = 12
+help = "Service NTSC tint (hue) in trap mode: the base the user phase is added to. Manual: NTSC tint angle."
+
+[items.chroma_center]
+label = "CHROMA"
+menu = 59
+group = "picture"
+eeprom = { at = 0x2B }
+help = "Chroma center (service): overall colour saturation base. Scales all four colour matrix coefficients together with user contrast and chroma (0x80 gives no colour)."
+
+# --- deflection ---
+
+[items.h_cent]
+label = "H CENT"
+menu = 6
+group = "deflection"
+eeprom = { at = 0x42, size = 2 }
+vdp = { reg = 0x7E, size = 2 }
+when = "input=video"
+help = "Horizontal centre of the picture on the video inputs (VDP HPOS, digital picture path; confirmed on composite 10-24). No effect on RGB: there the picture follows SYNC FB (RGB)."
+
+[items.v_cent]
+label = "V CENT"
+menu = 12
+group = "deflection"
+eeprom = { at = 0x4C, size = 2 }
+vdp = { fp = 0x080 }
+help = "Vertical centre of the picture (DC offset of the vertical sawtooth, VDP OFS). Higher = picture lower."
+
+[items.vbso]
+label = "VBSO"
+menu = 9
+group = "deflection"
+eeprom = { at = 0x46, size = 2 }
+vdp = { reg = 0x73, size = 2 }
+help = "Vertical blanking stop: first visible line after the vertical retrace."
+
+[items.avst]
+label = "AVST"
+menu = 10
+group = "deflection"
+eeprom = { at = 0x48, size = 2 }
+vdp = { reg = 0x6B, size = 2 }
+help = "Start of active video: first line of picture data."
+
+[items.intlc]
+signed = 12
+label = "INTLC"
+menu = 28
+group = "deflection"
+eeprom = { at = 0x6C, size = 2 }
+vdp = { fp = 0x073 }
+help = "Interlace offset added to the vertical sawtooth on every other field."
+
+[items.eht]
+label = "EHT"
+menu = 29
+group = "deflection"
+eeprom = { at = 0x70, size = 2 }
+vdp = { fp = 0x07B }
+help = "EHT compensation: corrects picture size changes caused by beam-current-dependent high voltage ('zooming')."
+
+[items.ehttm]
+label = "EHTTM"
+menu = 30
+group = "deflection"
+eeprom = { at = 0x72, size = 2 }
+vdp = { fp = 0x07A }
+help = "Time constant of the EHT compensation."
+
+# --- geometry: polynomial coefficients, live through [calc.vertical] / [calc.ew] ---
+
+[items.v_po]
+label = "V PO"
+menu = 55
+group = "geometry"
+eeprom = { at = 0x20 }
+help = "Initial value for the vertical centre: DC term of the vertical deflection waveform."
+
+[items.h_size]
+signed = 12
+osd = { shift = 4, hex = true }
+label = "H SIZE"
+menu = 50
+group = "geometry"
+eeprom = { at = 0x22, size = 2 }
+min = -1056
+max = -16
+danger = { level = "medium", text = "Extreme width modulation can overstress the east-west / horizontal output stage (if this chassis drives one)." }
+help = "Horizontal size (width): DC term of the east-west deflection waveform."
+
+[items.v_size]
+label = "V SIZE"
+menu = 56
+group = "geometry"
+eeprom = { at = 0x24 }
+min = 51
+max = 115
+danger = { level = "high", text = "A collapsed or very small vertical deflection concentrates the beam into a thin horizontal line that can burn the phosphor within seconds to minutes. Keep it near the factory value." }
+help = "Vertical size (height): slope of the vertical deflection sawtooth."
+
+[items.v_lin_down]
+signed = true
+label = "V LIN DOWN"
+menu = 57
+group = "geometry"
+eeprom = { at = 0x25 }
+min = -33
+max = 31
+danger = { level = "medium", text = "Extreme vertical linearity can fold the vertical scan (bright bands, local phosphor stress)." }
+help = "Vertical linearity, lower part: square term of the vertical sawtooth (top/bottom balance)."
+
+[items.v_line_up]
+signed = true
+label = "V LINE UP"
+menu = 58
+group = "geometry"
+eeprom = { at = 0x26 }
+min = -50
+max = 14
+danger = { level = "medium", text = "Extreme vertical linearity can fold the vertical scan (bright bands, local phosphor stress)." }
+help = "Vertical linearity, upper part: cube term of the vertical sawtooth (S-correction)."
+
+[items.pin_phase]
+signed = true
+label = "PIN PHASE"
+menu = 51
+group = "geometry"
+eeprom = { at = 0x27 }
+danger = { level = "medium", text = "Extreme east-west modulation can overstress the horizontal output stage (if this chassis drives one)." }
+help = "Pincushion phase: linear (tilt/trapezoid) term of the east-west waveform."
+
+[items.pin_amp]
+signed = true
+label = "PIN AMP"
+menu = 52
+group = "geometry"
+eeprom = { at = 0x28 }
+danger = { level = "medium", text = "Extreme east-west modulation can overstress the horizontal output stage (if this chassis drives one)." }
+help = "Pincushion amount: parabola term of the east-west waveform (edges bowing in/out)."
+
+[items.h_sexy_pin]
+signed = true
+label = "H SEXY PIN"
+menu = 53
+group = "geometry"
+eeprom = { at = 0x29 }
+danger = { level = "medium", text = "Extreme east-west modulation can overstress the horizontal output stage (if this chassis drives one)." }
+help = "Corner correction: cube term of the east-west waveform."
+
+[items.h_cor_pin]
+signed = true
+label = "H COR PIN"
+menu = 54
+group = "geometry"
+eeprom = { at = 0x2A }
+danger = { level = "medium", text = "Extreme east-west modulation can overstress the horizontal output stage (if this chassis drives one)." }
+help = "Corner correction: 4th-power term of the east-west waveform."
+
+# --- sync / decoder ---
+
+[items.agcref]
+label = "AGCREF"
+menu = 11
+group = "sync"
+eeprom = { at = 0x4A, size = 2 }
+vdp = { fp = 0x0B2 }
+help = "Sync amplitude reference for the AGC (automatic gain control of the input signal)."
+
+[items.gain]
+label = "GAIN"
+menu = 22
+group = "sync"
+eeprom = { at = 0x60, size = 2 }
+vdp = { fp = 0x020 }
+help = "AGC gain value (input signal gain). The datasheet says it reads back only while the AGC is enabled."
+
+[items.sgain]
+label = "SGAIN"
+menu = 23
+group = "sync"
+eeprom = { at = 0x62, size = 2 }
+vdp = { fp = 0x0BE }
+help = "Start value for the AGC gain, used while the AGC isn't locked."
+
+[items.clpgi]
+label = "CLPGI"
+menu = 16
+group = "sync"
+eeprom = { at = 0x54, size = 2 }
+vdp = { fp = 0x02C }
+help = "Integral gain of the input clamp loop (black-level clamping)."
+
+[items.clpgp]
+label = "CLPGP"
+menu = 17
+group = "sync"
+eeprom = { at = 0x56, size = 2 }
+vdp = { fp = 0x02D }
+help = "Proportional gain of the input clamp loop."
+
+[items.clpmd]
+label = "CLPMD"
+menu = 18
+group = "sync"
+eeprom = { at = 0x58, size = 2 }
+vdp = { fp = 0x029 }
+help = "Clamping mode of the input stage."
+
+[items.slclvl]
+label = "SLCLVL"
+menu = 31
+group = "sync"
+eeprom = { at = 0x74, size = 2 }
+vdp = { fp = 0x0CC }
+help = "Sync slice level: threshold used to separate sync pulses from the video."
+
+[items.if1]
+label = "IF1"
+menu = 32
+group = "sync"
+eeprom = { at = 0x76, size = 2, bits = [4, 0] }
+vdp = { fp = 0x04B, bits = [4, 0] }
+danger = { level = "medium", text = "An unstable horizontal PLL can stress the horizontal output stage." }
+help = "Proportional gain of the horizontal PLL (how fast the picture follows horizontal sync)."
+
+[items.if2]
+label = "IF2"
+menu = 33
+group = "sync"
+eeprom = { at = 0x76, size = 2, bits = [8, 5] }
+vdp = { fp = 0x04B, bits = [8, 5] }
+danger = { level = "medium", text = "An unstable horizontal PLL can stress the horizontal output stage." }
+help = "Integral gain of the horizontal PLL."
+
+[items.kilhy]
+label = "KILHY"
+menu = 20
+group = "sync"
+eeprom = { at = 0x5C, size = 2 }
+vdp = { fp = 0x0A9 }
+help = "Colour killer hysteresis: margin between turning colour off and back on for weak signals."
+
+[items.kilvl]
+label = "KILVL"
+menu = 21
+group = "sync"
+eeprom = { at = 0x5E, size = 2 }
+vdp = { fp = 0x0A8 }
+help = "Colour killer level: below this colour burst amplitude, colour is switched off."
+
+# --- tube / beam current ---
+
+[items.wdrv]
+label = "WDRV"
+menu = 7
+group = "tube"
+eeprom = { at = 0x44, size = 2 }
+vdp = { reg = 0x13, size = 2, readable = true, bits = [9, 0] }
+danger = { level = "low", text = "Affects the white-drive measurement used by the automatic loops." }
+help = "White drive value used for the tube's white-drive measurement."
+
+[items.drive_limit]
+label = "DRIVE LIMIT"
+menu = 19
+group = "tube"
+eeprom = { at = 0x5A, size = 2 }
+vdp = { fp = 0x0FC }
+danger = { level = "medium", text = "Changes the beam-current feedback the cutoff loop relies on. Too much beam current can burn the phosphor, wear the cathodes and overload the high-voltage supply." }
+help = "Size of the beam-current feedback pulse used for the tube measurement (VDP IBRM)."
+
+[items.bclthr]
+label = "BCLTHR"
+menu = 24
+group = "tube"
+eeprom = { at = 0x64, size = 2 }
+vdp = { fp = 0x0D4 }
+max = 512
+danger = { level = "medium", text = "Raising the limiter threshold lets the tube draw more current. Too much beam current can burn the phosphor, wear the cathodes and overload the high-voltage supply." }
+help = "Beam current limiter threshold: beam current above which contrast is reduced."
+
+[items.bcltm]
+label = "BCLTM"
+menu = 25
+group = "tube"
+eeprom = { at = 0x66, size = 2 }
+vdp = { fp = 0x0D2 }
+help = "Beam current limiter time constant."
+
+[items.bclg]
+label = "BCLG"
+menu = 26
+group = "tube"
+eeprom = { at = 0x68, size = 2 }
+vdp = { fp = 0x0D3 }
+min = 2048
+max = 4095
+danger = { level = "medium", text = "Bit 11 must stay 1 (datasheet); a low gain weakens the beam current limiter. Too much beam current can burn the phosphor, wear the cathodes and overload the high-voltage supply." }
+help = "Beam current limiter loop gain: how strongly contrast is reduced above the threshold."
+
+[items.bclmin]
+label = "BCLMIN"
+menu = 27
+group = "tube"
+eeprom = { at = 0x6A, size = 2 }
+vdp = { fp = 0x0D5 }
+danger = { level = "medium", text = "The limiter's minimum contrast; set too high, the limiter can no longer reduce the beam current." }
+help = "Beam current limiter minimum contrast: the lowest contrast the limiter may go down to."
+
+[items.comb]
+label = "COMB"
+menu = 64
+group = "picture"
+eeprom = { at = 0x40, size = 2 }
+vdp = { fp = 0x043 }
+refresh = false
+help = "Timing for the NTSC comb filter (luma/chroma separation on composite video)."
+
+[items.lc_delay]
+label = "L/C DELAY (60)"
+menu = 49
+group = "picture"
+eeprom = { at = 0xD0 }
+vdp = { reg = 0x31, size = 1, readable = true, bits = [4, 0] }
+when = "field=60"
+help = "Luminance/chroma delay: aligns colour with the luminance edges. Value used at 60 Hz on RGB (0xD0-0xDF probably hold one per colour standard)."
+
+[items.lc_delay_50]
+label = "L/C DELAY (50)"
+menu = 49
+group = "picture"
+eeprom = { at = 0xD4 }
+vdp = { reg = 0x31, size = 1, readable = true, bits = [4, 0] }
+when = "field=50"
+help = "Luminance/chroma delay: aligns colour with the luminance edges. Value used at 50 Hz on RGB (found 10-24: 0xD4 +1 -> reg 31 +1)."
+
+[items.r_co]
+label = "R C/O"
+menu = 38
+group = "tube"
+eeprom = { at = 0x96, size = 2, bits = [8, 0] }
+vdp = { reg = 0x6E, size = 2 }
+danger = { level = "medium", text = "Changes the black level of that gun (higher = more beam current at black). Too much beam current can burn the phosphor, wear the cathodes and overload the high-voltage supply." }
+help = "Red cutoff: black level of the red gun. Common to both inputs."
+
+[items.g_co]
+label = "G C/O"
+menu = 39
+group = "tube"
+eeprom = { at = 0x98, size = 2, bits = [8, 0] }
+vdp = { reg = 0x6A, size = 2 }
+danger = { level = "medium", text = "Changes the black level of that gun (higher = more beam current at black). Too much beam current can burn the phosphor, wear the cathodes and overload the high-voltage supply." }
+help = "Green cutoff: black level of the green gun."
+
+[items.b_co]
+label = "B C/O"
+menu = 40
+group = "tube"
+eeprom = { at = 0x9A, size = 2, bits = [8, 0] }
+vdp = { reg = 0x66, size = 2 }
+danger = { level = "medium", text = "Changes the black level of that gun (higher = more beam current at black). Too much beam current can burn the phosphor, wear the cathodes and overload the high-voltage supply." }
+help = "Blue cutoff: black level of the blue gun. Mapped by elimination (R and G tested)."
+
+# --- per input (VIDEO block 0x90, RGB block 0xA0) ---
+
+[items.r_drive_video]
+label = "R DRIVE (VIDEO)"
+menu = 35
+group = "per input"
+eeprom = { at = 0x90, size = 2 }
+vdp = { fp = 0x0F0, latch = "b_drive_video" }
+when = "input=video"
+max = 928
+danger = { level = "medium", text = "Too much beam current can burn the phosphor, wear the cathodes and overload the high-voltage supply." }
+help = "Red white-balance drive for the video inputs (gain of the red channel)."
+
+[items.g_drive_video]
+label = "G DRIVE (VIDEO)"
+menu = 36
+group = "per input"
+eeprom = { at = 0x92, size = 2 }
+vdp = { fp = 0x0F1, latch = "b_drive_video" }
+when = "input=video"
+max = 928
+danger = { level = "medium", text = "Too much beam current can burn the phosphor, wear the cathodes and overload the high-voltage supply." }
+help = "Green white-balance drive for the video inputs."
+
+[items.b_drive_video]
+label = "B DRIVE (VIDEO)"
+menu = 37
+group = "per input"
+eeprom = { at = 0x94, size = 2 }
+vdp = { fp = 0x0F2 }
+when = "input=video"
+max = 928
+danger = { level = "medium", text = "Too much beam current can burn the phosphor, wear the cathodes and overload the high-voltage supply." }
+help = "Blue white-balance drive for the video inputs."
+
+[items.rgb_clamp_video]
+label = "RGB CLAMP (VIDEO)"
+menu = 41
+group = "per input"
+eeprom = { at = 0x9C, size = 2 }
+vdp = { reg = 0x67, size = 2 }
+when = "input=video"
+help = "Clamp timing for RGB (pedestal clamp), video-input set."
+
+[items.sync_fb_video]
+label = "SYNC FB (VIDEO)"
+menu = 42
+group = "per input"
+eeprom = { at = 0x9E, size = 2 }
+vdp = { reg = 0x63, size = 2 }
+when = "input=video"
+help = "Timing between sync and the flyback pulse, video-input set (VDP POFS3, the analog RGB path). No visible change on composite video (10-24): use H CENT to move the picture there."
+
+[items.sync_fb_rgb]
+label = "SYNC FB (RGB)"
+menu = 42
+group = "per input"
+eeprom = { at = 0xAE, size = 2 }
+vdp = { reg = 0x63, size = 2 }
+when = "input=rgb"
+help = "Timing between sync and the flyback pulse, RGB-input set (VDP POFS3). Moves the picture left/right on the RGB input."
+
+[items.r_drive_rgb]
+label = "R DRIVE (RGB)"
+menu = 35
+group = "per input"
+eeprom = { at = 0xA0, size = 2 }
+vdp = { fp = 0x0F0, latch = "b_drive_rgb" }
+when = "input=rgb"
+max = 928
+danger = { level = "medium", text = "Too much beam current can burn the phosphor, wear the cathodes and overload the high-voltage supply." }
+help = "Red white-balance drive for the RGB input."
+
+[items.g_drive_rgb]
+label = "G DRIVE (RGB)"
+menu = 36
+group = "per input"
+eeprom = { at = 0xA2, size = 2 }
+vdp = { fp = 0x0F1, latch = "b_drive_rgb" }
+when = "input=rgb"
+max = 928
+danger = { level = "medium", text = "Too much beam current can burn the phosphor, wear the cathodes and overload the high-voltage supply." }
+help = "Green white-balance drive for the RGB input."
+
+[items.b_drive_rgb]
+label = "B DRIVE (RGB)"
+menu = 37
+group = "per input"
+eeprom = { at = 0xA4, size = 2 }
+vdp = { fp = 0x0F2 }
+when = "input=rgb"
+max = 928
+danger = { level = "medium", text = "Too much beam current can burn the phosphor, wear the cathodes and overload the high-voltage supply." }
+help = "Blue white-balance drive for the RGB input."
+
+[items.rgb_clamp_rgb]
+label = "RGB CLAMP (RGB)"
+menu = 41
+group = "per input"
+eeprom = { at = 0xAC, size = 2 }
+vdp = { reg = 0x67, size = 2 }
+when = "input=rgb"
+help = "Clamp timing for RGB (pedestal clamp), RGB-input set."
+
+[items.r_co_ref]
+label = "R C/O REF"
+menu = 60
+group = "per input"
+eeprom = { at = 0xF2 }
+danger = { level = "medium", text = "Changes the black level the cutoff loop aims for (higher = more beam current). Too much beam current can burn the phosphor, wear the cathodes and overload the high-voltage supply." }
+help = "Red cutoff reference: target black level of the red gun for the automatic cutoff loop."
+
+[items.g_co_ref]
+label = "G C/O REF"
+menu = 61
+group = "per input"
+eeprom = { at = 0xF1 }
+danger = { level = "medium", text = "Changes the black level the cutoff loop aims for (higher = more beam current). Too much beam current can burn the phosphor, wear the cathodes and overload the high-voltage supply." }
+help = "Green cutoff reference for the automatic cutoff loop."
+
+[items.b_co_ref]
+label = "B C/O REF"
+menu = 62
+group = "per input"
+eeprom = { at = 0xF0 }
+danger = { level = "medium", text = "Changes the black level the cutoff loop aims for (higher = more beam current). Too much beam current can burn the phosphor, wear the cathodes and overload the high-voltage supply." }
+help = "Blue cutoff reference for the automatic cutoff loop."
+
+# --- per line frequency (525/60 block 0xC0, 625/50 block 0xB0) ---
+
+[items.pmst_60]
+label = "PMST [60]"
+menu = 43
+group = "per field"
+eeprom = { at = 0xC0, size = 2 }
+vdp = { reg = 0x7B, size = 2 }
+when = "field=60"
+danger = { level = "low", text = "Wrong measurement lines make the automatic cutoff loop measure the picture instead of the reference pulse (black level drift)." }
+help = "Picture measurement start line (60 Hz): first line used to measure the picture."
+
+[items.pmso_60]
+label = "PMSO [60]"
+menu = 44
+group = "per field"
+eeprom = { at = 0xC2, size = 2 }
+vdp = { reg = 0x77, size = 2 }
+when = "field=60"
+danger = { level = "low", text = "Wrong measurement lines make the automatic cutoff loop measure the picture instead of the reference pulse (black level drift)." }
+help = "Picture measurement stop line (60 Hz)."
+
+[items.tml_60]
+label = "TML [60]"
+menu = 45
+group = "per field"
+eeprom = { at = 0xC4, size = 2 }
+vdp = { reg = 0x7F, size = 2 }
+when = "field=60"
+danger = { level = "low", text = "Wrong measurement lines make the automatic cutoff loop measure the picture instead of the reference pulse (black level drift)." }
+help = "Tube measurement line (60 Hz): where the beam-current feedback pulse is placed in the blanking."
+
+[items.hbst_60]
+label = "H BLK START [60]"
+menu = 47
+group = "per field"
+eeprom = { at = 0xC6 }
+vdp = { reg = 0x17, size = 1, readable = true }
+when = "field=60"
+help = "Start of horizontal blanking (60 Hz)."
+
+[items.hbso_60]
+label = "H BLK STOP [60]"
+menu = 46
+group = "per field"
+eeprom = { at = 0xC7 }
+vdp = { reg = 0x16, size = 1, readable = true }
+when = "field=60"
+help = "End of horizontal blanking (60 Hz)."
+
+[items.vbst_60]
+label = "VBST [60]"
+menu = 48
+group = "per field"
+eeprom = { at = 0xC8, size = 2 }
+vdp = { reg = 0x6F, size = 2 }
+when = "field=60"
+help = "Vertical blanking start (60 Hz): last visible line before the vertical retrace."
+
+[items.pmst_50]
+label = "PMST [50]"
+menu = 43
+group = "per field"
+eeprom = { at = 0xB0, size = 2 }
+vdp = { reg = 0x7B, size = 2 }
+when = "field=50"
+danger = { level = "low", text = "Wrong measurement lines make the automatic cutoff loop measure the picture instead of the reference pulse (black level drift)." }
+help = "Picture measurement start line (50 Hz): first line used to measure the picture."
+
+[items.pmso_50]
+label = "PMSO [50]"
+menu = 44
+group = "per field"
+eeprom = { at = 0xB2, size = 2 }
+vdp = { reg = 0x77, size = 2 }
+when = "field=50"
+danger = { level = "low", text = "Wrong measurement lines make the automatic cutoff loop measure the picture instead of the reference pulse (black level drift)." }
+help = "Picture measurement stop line (50 Hz)."
+
+[items.tml_50]
+label = "TML [50]"
+menu = 45
+group = "per field"
+eeprom = { at = 0xB4, size = 2 }
+vdp = { reg = 0x7F, size = 2 }
+when = "field=50"
+danger = { level = "low", text = "Wrong measurement lines make the automatic cutoff loop measure the picture instead of the reference pulse (black level drift)." }
+help = "Tube measurement line (50 Hz): where the beam-current feedback pulse is placed in the blanking."
+
+[items.hbst_50]
+label = "H BLK START [50]"
+menu = 47
+group = "per field"
+eeprom = { at = 0xB6 }
+vdp = { reg = 0x17, size = 1, readable = true }
+when = "field=50"
+help = "Start of horizontal blanking (50 Hz)."
+
+[items.hbso_50]
+label = "H BLK STOP [50]"
+menu = 46
+group = "per field"
+eeprom = { at = 0xB7 }
+vdp = { reg = 0x16, size = 1, readable = true }
+when = "field=50"
+help = "End of horizontal blanking (50 Hz)."
+
+[items.vbst_50]
+label = "VBST [50]"
+menu = 48
+group = "per field"
+eeprom = { at = 0xB8, size = 2 }
+vdp = { reg = 0x6F, size = 2 }
+when = "field=50"
+help = "Vertical blanking start (50 Hz): last visible line before the vertical retrace."

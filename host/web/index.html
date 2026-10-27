@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PVM Panel</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="status">
+    <span id="dot" class="dot"></span>
+    <span id="model">pvm-jig</span>
+    <span id="core" class="muted"></span>
+  </div>
+  <div class="actions">
+    <button id="edit" class="primary">Edit</button>
+    <button id="save" class="primary" hidden>Save</button>
+    <button id="revert" hidden>Revert</button>
+    <button id="profiles-open" title="Profiles per core">Profiles</button>
+    <button id="settings-open" title="Port, model, watcher">Settings</button>
+  </div>
+</header>
+
+<dialog id="settings">
+  <form method="dialog">
+    <h2>Settings</h2>
+    <label>Serial port
+      <select id="port"></select>
+    </label>
+    <p id="port-info" class="hint"></p>
+    <label>Monitor model
+      <select id="model-select"></select>
+    </label>
+    <label class="check"><input type="checkbox" id="watcher"> Watch the running core</label>
+    <label class="check"><input type="checkbox" id="auto-apply"> Apply profiles automatically</label>
+    <label>Delay before applying (s)
+      <input type="number" id="delay" min="0.5" max="30" step="0.5">
+    </label>
+    <p class="hint">The first time auto-apply is turned on, the current EEPROM is saved as the baseline.
+      Settings can't be changed while editing: Save or Revert first.</p>
+    <div class="dialog-actions">
+      <button type="button" id="rescan">Rescan</button>
+      <span class="spacer"></span>
+      <button value="cancel">Cancel</button>
+      <button type="button" id="apply" class="primary">Apply</button>
+    </div>
+  </form>
+</dialog>
+
+<p id="banner" class="banner" hidden></p>
+<p id="note" class="note" hidden></p>
+
+<nav id="tabs"></nav>
+<main id="groups"></main>
+
+<main id="profiles-view" hidden>
+  <div class="prof-head">
+    <p id="prof-status"></p>
+    <p id="prof-last" class="hint"></p>
+    <p id="prof-editing" class="banner" hidden>Editing in the panel: Save or Revert there first. Profiles copy
+      what is in the EEPROM, and nothing is applied while editing.</p>
+    <p id="prof-result" class="result" hidden></p>
+    <div class="prof-actions">
+      <button id="cap-core" class="primary">Copy monitor → core</button>
+      <button id="cap-base">Copy monitor → baseline</button>
+      <button id="cap-preset">Copy monitor → new preset…</button>
+    </div>
+    <label class="check"><input type="checkbox" id="only-diff" checked> Show only values that differ from the baseline</label>
+    <p class="hint">“Copy monitor →” stores the values in the EEPROM now: tune with Edit and Save first.
+      “Apply → monitor” on a card writes it to the monitor (baseline + that preset or core profile; the
+      baseline alone on the Baseline card) and holds until the next core change. Presets are only applied by
+      hand; a core uses the baseline plus its own profile, the menu the baseline.</p>
+  </div>
+  <div id="prof-list"></div>
+</main>
+
+<p id="toast" class="toast" hidden></p>
+
+<template id="row">
+  <div class="row">
+    <button class="name"></button>
+    <div class="ctl">
+      <button class="step" data-d="-1">&minus;</button>
+      <input class="value" inputmode="text" autocomplete="off" spellcheck="false" disabled>
+      <button class="step" data-d="1">+</button>
+    </div>
+    <span class="state"></span>
+    <div class="info" hidden></div>
+  </div>
+</template>
+
+<script src="app.js"></script>
+</body>
+</html>
