@@ -129,22 +129,45 @@ Back up the EEPROM before anything else:
 ## Command line
 
 ```
-info / ports            model, port and BINT state / serial ports
-bint [on|off|manual|auto]
-list [GROUP] [-l]       items with their EEPROM (and VDP) values
-get ITEM                one item: value, VDP target, description, safe range
-set ITEM VALUE [ITEM VALUE ...] [-c]
-                        live write, or EEPROM + reload with -c
-pending / commit / discard
-ee dump|diff|restore FILE
-ee read|write, fp read|write, reg read|write, i2c read|write, scan, raw
-shell                   interactive session
+python host/pvm-jig.py --help
+usage: pvm-jig [-h] [--version] [-p PORT] [-m MODEL] [--manual] {ports,info,bint,scan,raw,ee,fp,reg,i2c,list,get,set,pending,commit,discard,shell} ...
+
+Control and debug a Sony PVM through the Nano I2C bridge. All numbers are hex.
+
+positional arguments:
+  {ports,info,bint,scan,raw,ee,fp,reg,i2c,list,get,set,pending,commit,discard,shell}
+    ports               list serial ports
+    info                model, port, BINT state
+    bint                show or set BINT: on | off | manual | auto
+    scan                scan I2C addresses (lo hi)
+    raw                 send protocol lines to the Nano, e.g. raw "i 45 29"
+    ee                  eeprom: read OFF [N] | write OFF BYTE.. | dump [FILE] | diff FILE | restore FILE
+    fp                  VDP FP RAM: read ADDR.. | write ADDR VALUE
+    reg                 VDP direct register: read REG | write REG VALUE
+    i2c                 any device: read DEV REG [N] | write DEV BYTE..
+    list                items and their values
+    get                 one item: EEPROM and VDP value
+    set                 set items: ITEM VALUE [ITEM VALUE ...], values 1F | 0x1F | d:31 | osd:28, or relative +N / -d:N / +osd:N; all are checked before any is written, one commit; -c
+                        commits, -f forces unsafe values
+    pending             items set but not committed
+    commit              write pending items to EEPROM, release BINT
+    discard             drop pending items, release BINT
+    shell               interactive session (keeps BINT and pending items)
+
+options:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  -p, --port PORT       serial port (default: first USB serial port)
+  -m, --model MODEL     model name or .toml path
+  --manual              never touch BINT; bus commands run whatever its state (BINT gate off)
 ```
 
 Values are hex by default; `d:31` is decimal, `osd:28` is the value the monitor's menu shows,
 `+N` / `-N` are relative. One `set` can take several items: every value is checked first (a bad
 one writes nothing), then they are written with a single reload. The exit code is 1 if a command
 failed.
+
+Example:
 
 ```
 $ .venv/bin/python host/pvm-jig.py shell
