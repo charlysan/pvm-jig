@@ -1,4 +1,6 @@
 # pvm-jig
+[![Build](https://github.com/charlysan/pvm-jig/actions/workflows/build.yml/badge.svg)](https://github.com/charlysan/pvm-jig/actions/workflows/build.yml)
+
 
 Read and adjust the **service settings of Sony PVM monitors** from a computer, through the I2C
 service header, using an Arduino Nano.
