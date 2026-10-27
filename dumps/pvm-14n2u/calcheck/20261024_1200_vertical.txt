@@ -1,0 +1,47 @@
+Sony PVM-14N2U (CXP85220A-027S, firmware 1.x), context field 60, input rgb
+backup: dumps/calcheck/20261024_1200_backup.hex
+
+Plan (one item at a time, restored after each):
+  calc.vertical  v_po now 55 (85)
+    56 (86) 
+    54 (84) 
+    57 (87) 
+    53 (83) 
+4 points, about 6 reloads (36 s, one short blank each)
+
+calc.vertical, v_po (now 55 (85))
+  v_po = 55 (85)
+    FP 08B             expect 0D6C  vdp 0D6C  ok
+    FP 08C             expect 01B1  vdp 01B1  ok
+    FP 08D             expect 00B8  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D6C  vdp 0D6C  ok
+  v_po = 56 (86)
+    FP 08B             expect 0D6D  vdp 0D6D  ok
+    FP 08C             expect 01B1  vdp 01B1  ok
+    FP 08D             expect 00B8  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D6D  vdp 0D6D  ok
+  v_po = 54 (84)
+    FP 08B             expect 0D6B  vdp 0D6B  ok
+    FP 08C             expect 01B1  vdp 01B1  ok
+    FP 08D             expect 00B8  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D6B  vdp 0D6B  ok
+  v_po = 57 (87)
+    FP 08B             expect 0D6E  vdp 0D6E  ok
+    FP 08C             expect 01B1  vdp 01B1  ok
+    FP 08D             expect 00B8  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D6E  vdp 0D6E  ok
+  v_po = 53 (83)
+    FP 08B             expect 0D6A  vdp 0D6A  ok
+    FP 08C             expect 01B1  vdp 01B1  ok
+    FP 08D             expect 00B8  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D6A  vdp 0D6A  ok
+  restored v_po = 55 (85), targets back as before
+
+Summary (context field 60, input rgb):
+  calc.vertical    25 ok    0 bad
+EEPROM vs backup: 0 byte(s) differed

@@ -1,0 +1,52 @@
+Sony PVM-14N2U (CXP85220A-027S, firmware 1.x), context field 50, input rgb
+backup: dumps/calcheck/20261024_1333_backup.hex
+
+Plan (one item at a time, restored after each):
+  calc.vertical  v_lin_down now 03 (3)
+    04 (4) 
+    02 (2) 
+    05 (5) 
+    01 (1) 
+  calc.vertical  v_line_up now EF (-17)
+    F0 (-16) 
+    EE (-18) 
+    F1 (-15) 
+    ED (-19) 
+  calc.vertical  v_po now 55 (85)
+    56 (86) 
+    54 (84) 
+    57 (87) 
+    53 (83) 
+  calc.vertical  v_size now 50 (80)
+    51 (81) 
+    4F (79) 
+    52 (82) 
+    4E (78) 
+  calc.ew  h_cor_pin now 46 (70)
+    47 (71) 
+    45 (69) 
+    48 (72) 
+    44 (68) 
+  calc.ew  h_sexy_pin now E8 (-24)
+    E9 (-23) 
+    E7 (-25) 
+    EA (-22) 
+    E6 (-26) 
+  calc.ew  h_size now 0CD0 (-816) OSD CD
+    0CE0 (-800) OSD CE 
+    0CC0 (-832) OSD CC 
+    0CF0 (-784) OSD CF 
+    0CB0 (-848) OSD CB 
+  calc.ew  pin_amp now 9F (-97)
+    A0 (-96) 
+    9E (-98) 
+    A1 (-95) 
+    9D (-99) 
+  calc.ew  pin_phase now D8 (-40)
+    D9 (-39) 
+    D7 (-41) 
+    DA (-38) 
+    D6 (-42) 
+36 points, about 54 reloads (324 s, one short blank each)
+not run
+EEPROM vs backup: 0 byte(s) differed

@@ -1,0 +1,161 @@
+Sony PVM-14N2U (CXP85220A-027S, firmware 1.x), context field 60, input rgb
+backup: dumps/calcheck/20261024_1232_backup.hex
+
+Plan (one item at a time, restored after each):
+  calc.vertical  v_lin_down now 03 (3)
+    04 (4) 
+    02 (2) 
+    05 (5) 
+    01 (1) 
+  calc.vertical  v_line_up now EF (-17)
+    F0 (-16) 
+    EE (-18) 
+    F1 (-15) 
+    ED (-19) 
+  calc.vertical  v_po now 55 (85)
+    56 (86) 
+    54 (84) 
+    57 (87) 
+    53 (83) 
+  calc.vertical  v_size now 50 (80)
+    51 (81) 
+    4F (79) 
+    52 (82) 
+    4E (78) 
+16 points, about 24 reloads (144 s, one short blank each)
+
+calc.vertical, v_lin_down (now 03 (3))
+  v_lin_down = 03 (3)
+    FP 08B             expect 0D6C  vdp 0D6C  ok
+    FP 08C             expect 01B1  vdp 01B1  ok
+    FP 08D             expect 00B7  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D6C  vdp 0D6C  ok
+  v_lin_down = 04 (4)
+    FP 08B             expect 0D71  vdp 0D71  ok
+    FP 08C             expect 01A9  vdp 01A9  ok
+    FP 08D             expect 00BA  vdp 00BA  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D71  vdp 0D71  ok
+  v_lin_down = 02 (2)
+    FP 08B             expect 0D67  vdp 0D67  ok
+    FP 08C             expect 01BA  vdp 01BA  ok
+    FP 08D             expect 00B4  vdp 00B4  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D67  vdp 0D67  ok
+  v_lin_down = 05 (5)
+    FP 08B             expect 0D77  vdp 0D77  ok
+    FP 08C             expect 01A0  vdp 01A0  ok
+    FP 08D             expect 00BE  vdp 00BE  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D77  vdp 0D77  ok
+  v_lin_down = 01 (1)
+    FP 08B             expect 0D61  vdp 0D61  ok
+    FP 08C             expect 01C2  vdp 01C2  ok
+    FP 08D             expect 00B0  vdp 00B0  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D61  vdp 0D61  ok
+  restored v_lin_down = 03 (3), targets back as before
+
+calc.vertical, v_line_up (now EF (-17))
+  v_line_up = EF (-17)
+    FP 08B             expect 0D6C  vdp 0D6C  ok
+    FP 08C             expect 01B1  vdp 01B1  ok
+    FP 08D             expect 00B7  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D6C  vdp 0D6C  ok
+  v_line_up = F0 (-16)
+    FP 08B             expect 0D66  vdp 0D66  ok
+    FP 08C             expect 01BE  vdp 01BE  ok
+    FP 08D             expect 00AD  vdp 00AD  ok
+    FP 08E             expect 0F80  vdp 0F80  ok
+    FP 08F (mirror)    expect 0D66  vdp 0D66  ok
+  v_line_up = EE (-18)
+    FP 08B             expect 0D71  vdp 0D71  ok
+    FP 08C             expect 01A5  vdp 01A5  ok
+    FP 08D             expect 00C2  vdp 00C2  ok
+    FP 08E             expect 0F70  vdp 0F70  ok
+    FP 08F (mirror)    expect 0D71  vdp 0D71  ok
+  v_line_up = F1 (-15)
+    FP 08B             expect 0D61  vdp 0D61  ok
+    FP 08C             expect 01CB  vdp 01CB  ok
+    FP 08D             expect 00A3  vdp 00A3  ok
+    FP 08E             expect 0F88  vdp 0F88  ok
+    FP 08F (mirror)    expect 0D61  vdp 0D61  ok
+  v_line_up = ED (-19)
+    FP 08B             expect 0D76  vdp 0D76  ok
+    FP 08C             expect 0198  vdp 0198  ok
+    FP 08D             expect 00CC  vdp 00CC  ok
+    FP 08E             expect 0F68  vdp 0F68  ok
+    FP 08F (mirror)    expect 0D76  vdp 0D76  ok
+  restored v_line_up = EF (-17), targets back as before
+
+calc.vertical, v_po (now 55 (85))
+  v_po = 55 (85)
+    FP 08B             expect 0D6C  vdp 0D6C  ok
+    FP 08C             expect 01B1  vdp 01B1  ok
+    FP 08D             expect 00B7  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D6C  vdp 0D6C  ok
+  v_po = 56 (86)
+    FP 08B             expect 0D6D  vdp 0D6D  ok
+    FP 08C             expect 01B1  vdp 01B1  ok
+    FP 08D             expect 00B7  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D6D  vdp 0D6D  ok
+  v_po = 54 (84)
+    FP 08B             expect 0D6B  vdp 0D6B  ok
+    FP 08C             expect 01B1  vdp 01B1  ok
+    FP 08D             expect 00B7  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D6B  vdp 0D6B  ok
+  v_po = 57 (87)
+    FP 08B             expect 0D6E  vdp 0D6E  ok
+    FP 08C             expect 01B1  vdp 01B1  ok
+    FP 08D             expect 00B7  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D6E  vdp 0D6E  ok
+  v_po = 53 (83)
+    FP 08B             expect 0D6A  vdp 0D6A  ok
+    FP 08C             expect 01B1  vdp 01B1  ok
+    FP 08D             expect 00B7  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D6A  vdp 0D6A  ok
+  restored v_po = 55 (85), targets back as before
+
+calc.vertical, v_size (now 50 (80))
+  v_size = 50 (80)
+    FP 08B             expect 0D6C  vdp 0D6C  ok
+    FP 08C             expect 01B1  vdp 01B1  ok
+    FP 08D             expect 00B7  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D6C  vdp 0D6C  ok
+  v_size = 51 (81)
+    FP 08B             expect 0D61  vdp 0D61  ok
+    FP 08C             expect 01B9  vdp 01B9  ok
+    FP 08D             expect 00B7  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D61  vdp 0D61  ok
+  v_size = 4F (79)
+    FP 08B             expect 0D77  vdp 0D77  ok
+    FP 08C             expect 01A8  vdp 01A8  ok
+    FP 08D             expect 00B7  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D77  vdp 0D77  ok
+  v_size = 52 (82)
+    FP 08B             expect 0D57  vdp 0D57  ok
+    FP 08C             expect 01C1  vdp 01C1  ok
+    FP 08D             expect 00B7  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D57  vdp 0D57  ok
+  v_size = 4E (78)
+    FP 08B             expect 0D81  vdp 0D81  ok
+    FP 08C             expect 01A0  vdp 01A0  ok
+    FP 08D             expect 00B7  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D81  vdp 0D81  ok
+  restored v_size = 50 (80), targets back as before
+
+Summary (context field 60, input rgb):
+  calc.vertical   100 ok    0 bad
+EEPROM vs backup: 0 byte(s) differed

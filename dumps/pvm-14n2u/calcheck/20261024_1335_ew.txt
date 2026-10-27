@@ -1,0 +1,199 @@
+Sony PVM-14N2U (CXP85220A-027S, firmware 1.x), context field 50, input rgb
+backup: dumps/calcheck/20261024_1335_backup.hex
+
+Plan (one item at a time, restored after each):
+  calc.ew  h_cor_pin now 46 (70)
+    47 (71) 
+    45 (69) 
+    48 (72) 
+    44 (68) 
+  calc.ew  h_sexy_pin now E8 (-24)
+    E9 (-23) 
+    E7 (-25) 
+    EA (-22) 
+    E6 (-26) 
+  calc.ew  h_size now 0CD0 (-816) OSD CD
+    0CE0 (-800) OSD CE 
+    0CC0 (-832) OSD CC 
+    0CF0 (-784) OSD CF 
+    0CB0 (-848) OSD CB 
+  calc.ew  pin_amp now 9F (-97)
+    A0 (-96) 
+    9E (-98) 
+    A1 (-95) 
+    9D (-99) 
+  calc.ew  pin_phase now D8 (-40)
+    D9 (-39) 
+    D7 (-41) 
+    DA (-38) 
+    D6 (-42) 
+20 points, about 30 reloads (180 s, one short blank each)
+
+calc.ew, h_cor_pin (now 46 (70))
+  h_cor_pin = 46 (70)
+    FP 09B             expect 09FC  vdp 09FC  ok
+    FP 09C             expect 017E  vdp 017E  ok
+    FP 09D             expect 0043  vdp 0043  ok
+    FP 09E             expect 0D72  vdp 0D71  BAD
+    FP 09F             expect 019E  vdp 019E  ok
+  h_cor_pin = 47 (71)
+    FP 09B             expect 09FF  vdp 09FF  ok
+    FP 09C             expect 017B  vdp 017B  ok
+    FP 09D             expect 004A  vdp 004A  ok
+    FP 09E             expect 0D69  vdp 0D68  BAD
+    FP 09F             expect 01A4  vdp 01A4  ok
+  h_cor_pin = 45 (69)
+    FP 09B             expect 09FA  vdp 09FA  ok
+    FP 09C             expect 0182  vdp 0182  ok
+    FP 09D             expect 003C  vdp 003C  ok
+    FP 09E             expect 0D7B  vdp 0D7A  BAD
+    FP 09F             expect 0198  vdp 0198  ok
+  h_cor_pin = 48 (72)
+    FP 09B             expect 0A02  vdp 0A02  ok
+    FP 09C             expect 0177  vdp 0177  ok
+    FP 09D             expect 0051  vdp 0051  ok
+    FP 09E             expect 0D60  vdp 0D5F  BAD
+    FP 09F             expect 01AA  vdp 01AA  ok
+  h_cor_pin = 44 (68)
+    FP 09B             expect 09F7  vdp 09F7  ok
+    FP 09C             expect 0185  vdp 0185  ok
+    FP 09D             expect 0035  vdp 0035  ok
+    FP 09E             expect 0D84  vdp 0D83  BAD
+    FP 09F             expect 0192  vdp 0192  ok
+  restored h_cor_pin = 46 (70), targets back as before
+
+calc.ew, h_sexy_pin (now E8 (-24))
+  h_sexy_pin = E8 (-24)
+    FP 09B             expect 09FC  vdp 09FC  ok
+    FP 09C             expect 017E  vdp 017E  ok
+    FP 09D             expect 0043  vdp 0043  ok
+    FP 09E             expect 0D72  vdp 0D71  BAD
+    FP 09F             expect 019E  vdp 019E  ok
+  h_sexy_pin = E9 (-23)
+    FP 09B             expect 09FB  vdp 09FB  ok
+    FP 09C             expect 017F  vdp 017F  ok
+    FP 09D             expect 0042  vdp 0042  ok
+    FP 09E             expect 0D72  vdp 0D72  ok
+    FP 09F             expect 019E  vdp 019E  ok
+  h_sexy_pin = E7 (-25)
+    FP 09B             expect 09FD  vdp 09FD  ok
+    FP 09C             expect 017D  vdp 017D  ok
+    FP 09D             expect 0044  vdp 0044  ok
+    FP 09E             expect 0D71  vdp 0D71  ok
+    FP 09F             expect 019E  vdp 019E  ok
+  h_sexy_pin = EA (-22)
+    FP 09B             expect 09FB  vdp 09FB  ok
+    FP 09C             expect 017F  vdp 017F  ok
+    FP 09D             expect 0041  vdp 0041  ok
+    FP 09E             expect 0D73  vdp 0D73  ok
+    FP 09F             expect 019E  vdp 019E  ok
+  h_sexy_pin = E6 (-26)
+    FP 09B             expect 09FD  vdp 09FD  ok
+    FP 09C             expect 017D  vdp 017D  ok
+    FP 09D             expect 0045  vdp 0045  ok
+    FP 09E             expect 0D70  vdp 0D70  ok
+    FP 09F             expect 019E  vdp 019E  ok
+  restored h_sexy_pin = E8 (-24), targets back as before
+
+calc.ew, h_size (now 0CD0 (-816) OSD CD)
+  h_size = 0CD0 (-816) OSD CD
+    FP 09B             expect 09FC  vdp 09FC  ok
+    FP 09C             expect 017E  vdp 017E  ok
+    FP 09D             expect 0043  vdp 0043  ok
+    FP 09E             expect 0D72  vdp 0D71  BAD
+    FP 09F             expect 019E  vdp 019E  ok
+  h_size = 0CE0 (-800) OSD CE
+    FP 09B             expect 0A0C  vdp 0A0C  ok
+    FP 09C             expect 017E  vdp 017E  ok
+    FP 09D             expect 0043  vdp 0043  ok
+    FP 09E             expect 0D72  vdp 0D71  BAD
+    FP 09F             expect 019E  vdp 019E  ok
+  h_size = 0CC0 (-832) OSD CC
+    FP 09B             expect 09EC  vdp 09EC  ok
+    FP 09C             expect 017E  vdp 017E  ok
+    FP 09D             expect 0043  vdp 0043  ok
+    FP 09E             expect 0D72  vdp 0D71  BAD
+    FP 09F             expect 019E  vdp 019E  ok
+  h_size = 0CF0 (-784) OSD CF
+    FP 09B             expect 0A1C  vdp 0A1C  ok
+    FP 09C             expect 017E  vdp 017E  ok
+    FP 09D             expect 0043  vdp 0043  ok
+    FP 09E             expect 0D72  vdp 0D71  BAD
+    FP 09F             expect 019E  vdp 019E  ok
+  h_size = 0CB0 (-848) OSD CB
+    FP 09B             expect 09DC  vdp 09DC  ok
+    FP 09C             expect 017E  vdp 017E  ok
+    FP 09D             expect 0043  vdp 0043  ok
+    FP 09E             expect 0D72  vdp 0D71  BAD
+    FP 09F             expect 019E  vdp 019E  ok
+  restored h_size = 0CD0 (-816) OSD CD, targets back as before
+
+calc.ew, pin_amp (now 9F (-97))
+  pin_amp = 9F (-97)
+    FP 09B             expect 09FC  vdp 09FC  ok
+    FP 09C             expect 017E  vdp 017E  ok
+    FP 09D             expect 0043  vdp 0043  ok
+    FP 09E             expect 0D72  vdp 0D71  BAD
+    FP 09F             expect 019E  vdp 019E  ok
+  pin_amp = A0 (-96)
+    FP 09B             expect 0A06  vdp 0A06  ok
+    FP 09C             expect 0177  vdp 0177  ok
+    FP 09D             expect 0048  vdp 0048  ok
+    FP 09E             expect 0D72  vdp 0D71  BAD
+    FP 09F             expect 019E  vdp 019E  ok
+  pin_amp = 9E (-98)
+    FP 09B             expect 09F1  vdp 09F1  ok
+    FP 09C             expect 0185  vdp 0185  ok
+    FP 09D             expect 003F  vdp 003F  ok
+    FP 09E             expect 0D72  vdp 0D71  BAD
+    FP 09F             expect 019E  vdp 019E  ok
+  pin_amp = A1 (-95)
+    FP 09B             expect 0A11  vdp 0A11  ok
+    FP 09C             expect 0170  vdp 0170  ok
+    FP 09D             expect 004C  vdp 004C  ok
+    FP 09E             expect 0D72  vdp 0D71  BAD
+    FP 09F             expect 019E  vdp 019E  ok
+  pin_amp = 9D (-99)
+    FP 09B             expect 09E6  vdp 09E6  ok
+    FP 09C             expect 018C  vdp 018C  ok
+    FP 09D             expect 003A  vdp 003A  ok
+    FP 09E             expect 0D72  vdp 0D71  BAD
+    FP 09F             expect 019E  vdp 019E  ok
+  restored pin_amp = 9F (-97), targets back as before
+
+calc.ew, pin_phase (now D8 (-40))
+  pin_phase = D8 (-40)
+    FP 09B             expect 09FC  vdp 09FC  ok
+    FP 09C             expect 017E  vdp 017E  ok
+    FP 09D             expect 0043  vdp 0043  ok
+    FP 09E             expect 0D72  vdp 0D71  BAD
+    FP 09F             expect 019E  vdp 019E  ok
+  pin_phase = D9 (-39)
+    FP 09B             expect 09F9  vdp 09F9  ok
+    FP 09C             expect 017F  vdp 017F  ok
+    FP 09D             expect 0043  vdp 0043  ok
+    FP 09E             expect 0D72  vdp 0D71  BAD
+    FP 09F             expect 019E  vdp 019E  ok
+  pin_phase = D7 (-41)
+    FP 09B             expect 09FE  vdp 09FE  ok
+    FP 09C             expect 017D  vdp 017D  ok
+    FP 09D             expect 0043  vdp 0043  ok
+    FP 09E             expect 0D72  vdp 0D71  BAD
+    FP 09F             expect 019E  vdp 019E  ok
+  pin_phase = DA (-38)
+    FP 09B             expect 09F6  vdp 09F6  ok
+    FP 09C             expect 0180  vdp 0180  ok
+    FP 09D             expect 0043  vdp 0043  ok
+    FP 09E             expect 0D72  vdp 0D71  BAD
+    FP 09F             expect 019E  vdp 019E  ok
+  pin_phase = D6 (-42)
+    FP 09B             expect 0A01  vdp 0A01  ok
+    FP 09C             expect 017C  vdp 017C  ok
+    FP 09D             expect 0043  vdp 0043  ok
+    FP 09E             expect 0D72  vdp 0D71  BAD
+    FP 09F             expect 019E  vdp 019E  ok
+  restored pin_phase = D8 (-40), targets back as before
+
+Summary (context field 50, input rgb):
+  calc.ew         104 ok   21 bad
+EEPROM vs backup: 0 byte(s) differed

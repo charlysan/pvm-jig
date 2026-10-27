@@ -1,0 +1,534 @@
+Sony PVM-14N2U (CXP85220A-027S, firmware 1.x), context field 60, input rgb
+backup: dumps/calcheck/20261024_1204_backup.hex
+
+Plan (one item at a time, restored after each):
+  calc.vertical  v_lin_down now 03 (3)
+    04 (4) 
+    02 (2) 
+    05 (5) 
+    01 (1) 
+  calc.vertical  v_line_up now EF (-17)
+    F0 (-16) 
+    EE (-18) 
+    F1 (-15) 
+    ED (-19) 
+  calc.vertical  v_po now 55 (85)
+    56 (86) 
+    54 (84) 
+    57 (87) 
+    53 (83) 
+  calc.vertical  v_size now 50 (80)
+    51 (81) 
+    4F (79) 
+    52 (82) 
+    4E (78) 
+  calc.ew  h_cor_pin now 46 (70)
+    47 (71) 
+    45 (69) 
+    48 (72) 
+    44 (68) 
+  calc.ew  h_sexy_pin now E8 (-24)
+    E9 (-23) 
+    E7 (-25) 
+    EA (-22) 
+    E6 (-26) 
+  calc.ew  h_size now 0CD0 (-816) OSD CD
+    0CE0 (-800) OSD CE 
+    0CC0 (-832) OSD CC 
+    0CF0 (-784) OSD CF 
+    0CB0 (-848) OSD CB 
+  calc.ew  pin_amp now 9F (-97)
+    A0 (-96) 
+    9E (-98) 
+    A1 (-95) 
+    9D (-99) 
+  calc.ew  pin_phase now D8 (-40)
+    D9 (-39) 
+    D7 (-41) 
+    DA (-38) 
+    D6 (-42) 
+  calc.ibr  brightness now 3C (60) OSD 10
+    3D (61) OSD 11 
+    3B (59) OSD 9 
+    3E (62) OSD 12 
+    3A (58) OSD 8 
+  calc.ibr  video_sbrt now 0100 (256)
+    0101 (257) 
+    00FF (255) 
+    0102 (258) 
+    00FE (254) 
+    00C0 (192) 
+    0140 (320) 
+  calc.abr  brightness now 3C (60) OSD 10
+    3D (61) OSD 11 
+    3B (59) OSD 9 
+    3E (62) OSD 12 
+    3A (58) OSD 8 
+  calc.abr  rgb_sbrt now 0100 (256)
+    0101 (257) 
+    00FF (255) 
+    0102 (258) 
+    00FE (254) 
+    00C0 (192) 
+    0140 (320) 
+  calc.act  contrast now 0F (15)
+    10 (16) 
+    0E (14) 
+    11 (17) 
+    0D (13) 
+  calc.act  rgb_cont now 010D (269)
+    010E (270) 
+    010C (268) 
+    010F (271) 
+    010B (267) 
+    0160 (352) 
+  calc.ctm  contrast now 0F (15)
+    10 (16) 
+    0E (14) 
+    11 (17) 
+    0D (13) 
+  calc.tint  phase now 32 (50) OSD 0
+    33 (51) OSD 1 
+    31 (49) OSD -1 
+    34 (52) OSD 2 
+    30 (48) OSD -2 
+  calc.tint  tint now FFF (-1)
+    00 (0) 
+    FFE (-2) 
+    01 (1) 
+    FFD (-3) 
+77 points, about 113 reloads (678 s, one short blank each)
+
+calc.vertical, v_lin_down (now 03 (3))
+  v_lin_down = 03 (3)
+    FP 08B             expect 0D6C  vdp 0D6C  ok
+    FP 08C             expect 01B1  vdp 01B1  ok
+    FP 08D             expect 00B8  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D6C  vdp 0D6C  ok
+  v_lin_down = 04 (4)
+    FP 08B             expect 0D72  vdp 0D71  ok
+    FP 08C             expect 01A9  vdp 01A9  ok
+    FP 08D             expect 00BB  vdp 00BA  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D72  vdp 0D71  ok
+  v_lin_down = 02 (2)
+    FP 08B             expect 0D67  vdp 0D67  ok
+    FP 08C             expect 01BA  vdp 01BA  ok
+    FP 08D             expect 00B4  vdp 00B4  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D67  vdp 0D67  ok
+  v_lin_down = 05 (5)
+    FP 08B             expect 0D77  vdp 0D77  ok
+    FP 08C             expect 01A0  vdp 01A0  ok
+    FP 08D             expect 00BE  vdp 00BE  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D77  vdp 0D77  ok
+  v_lin_down = 01 (1)
+    FP 08B             expect 0D62  vdp 0D61  ok
+    FP 08C             expect 01C2  vdp 01C2  ok
+    FP 08D             expect 00B1  vdp 00B0  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D62  vdp 0D61  ok
+  restored v_lin_down = 03 (3), targets back as before
+
+calc.vertical, v_line_up (now EF (-17))
+  v_line_up = EF (-17)
+    FP 08B             expect 0D6C  vdp 0D6C  ok
+    FP 08C             expect 01B1  vdp 01B1  ok
+    FP 08D             expect 00B8  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D6C  vdp 0D6C  ok
+  v_line_up = F0 (-16)
+    FP 08B             expect 0D67  vdp 0D66  ok
+    FP 08C             expect 01BE  vdp 01BE  ok
+    FP 08D             expect 00AD  vdp 00AD  ok
+    FP 08E             expect 0F80  vdp 0F80  ok
+    FP 08F (mirror)    expect 0D67  vdp 0D66  ok
+  v_line_up = EE (-18)
+    FP 08B             expect 0D72  vdp 0D71  ok
+    FP 08C             expect 01A4  vdp 01A5  ok
+    FP 08D             expect 00C2  vdp 00C2  ok
+    FP 08E             expect 0F70  vdp 0F70  ok
+    FP 08F (mirror)    expect 0D72  vdp 0D71  ok
+  v_line_up = F1 (-15)
+    FP 08B             expect 0D62  vdp 0D61  ok
+    FP 08C             expect 01CB  vdp 01CB  ok
+    FP 08D             expect 00A3  vdp 00A3  ok
+    FP 08E             expect 0F88  vdp 0F88  ok
+    FP 08F (mirror)    expect 0D62  vdp 0D61  ok
+  v_line_up = ED (-19)
+    FP 08B             expect 0D77  vdp 0D76  ok
+    FP 08C             expect 0197  vdp 0198  ok
+    FP 08D             expect 00CC  vdp 00CC  ok
+    FP 08E             expect 0F68  vdp 0F68  ok
+    FP 08F (mirror)    expect 0D77  vdp 0D76  ok
+  restored v_line_up = EF (-17), targets back as before
+
+calc.vertical, v_po (now 55 (85))
+  v_po = 55 (85)
+    FP 08B             expect 0D6C  vdp 0D6C  ok
+    FP 08C             expect 01B1  vdp 01B1  ok
+    FP 08D             expect 00B8  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D6C  vdp 0D6C  ok
+  v_po = 56 (86)
+    FP 08B             expect 0D6D  vdp 0D6D  ok
+    FP 08C             expect 01B1  vdp 01B1  ok
+    FP 08D             expect 00B8  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D6D  vdp 0D6D  ok
+  v_po = 54 (84)
+    FP 08B             expect 0D6B  vdp 0D6B  ok
+    FP 08C             expect 01B1  vdp 01B1  ok
+    FP 08D             expect 00B8  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D6B  vdp 0D6B  ok
+  v_po = 57 (87)
+    FP 08B             expect 0D6E  vdp 0D6E  ok
+    FP 08C             expect 01B1  vdp 01B1  ok
+    FP 08D             expect 00B8  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D6E  vdp 0D6E  ok
+  v_po = 53 (83)
+    FP 08B             expect 0D6A  vdp 0D6A  ok
+    FP 08C             expect 01B1  vdp 01B1  ok
+    FP 08D             expect 00B8  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D6A  vdp 0D6A  ok
+  restored v_po = 55 (85), targets back as before
+
+calc.vertical, v_size (now 50 (80))
+  v_size = 50 (80)
+    FP 08B             expect 0D6C  vdp 0D6C  ok
+    FP 08C             expect 01B1  vdp 01B1  ok
+    FP 08D             expect 00B8  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D6C  vdp 0D6C  ok
+  v_size = 51 (81)
+    FP 08B             expect 0D62  vdp 0D61  ok
+    FP 08C             expect 01BA  vdp 01B9  ok
+    FP 08D             expect 00B8  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D62  vdp 0D61  ok
+  v_size = 4F (79)
+    FP 08B             expect 0D77  vdp 0D77  ok
+    FP 08C             expect 01A9  vdp 01A8  ok
+    FP 08D             expect 00B8  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D77  vdp 0D77  ok
+  v_size = 52 (82)
+    FP 08B             expect 0D57  vdp 0D57  ok
+    FP 08C             expect 01C2  vdp 01C1  ok
+    FP 08D             expect 00B8  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D57  vdp 0D57  ok
+  v_size = 4E (78)
+    FP 08B             expect 0D82  vdp 0D81  ok
+    FP 08C             expect 01A0  vdp 01A0  ok
+    FP 08D             expect 00B8  vdp 00B7  ok
+    FP 08E             expect 0F78  vdp 0F78  ok
+    FP 08F (mirror)    expect 0D82  vdp 0D81  ok
+  restored v_size = 50 (80), targets back as before
+
+calc.ew, h_cor_pin (now 46 (70))
+  h_cor_pin = 46 (70)
+    FP 09B             expect 09FB  vdp 09FC  ok
+    FP 09C             expect 01CC  vdp 01CC  ok
+    FP 09D             expect 0065  vdp 0065  ok
+    FP 09E             expect 0B89  vdp 0B89  ok
+    FP 09F             expect 0363  vdp 0363  ok
+  h_cor_pin = 47 (71)
+    FP 09B             expect 09FD  vdp 09FF  BAD
+    FP 09C             expect 01C8  vdp 01C7  ok
+    FP 09D             expect 006F  vdp 006F  ok
+    FP 09E             expect 0B79  vdp 0B79  ok
+    FP 09F             expect 036F  vdp 036F  ok
+  h_cor_pin = 45 (69)
+    FP 09B             expect 09F8  vdp 09FA  BAD
+    FP 09C             expect 01D0  vdp 01D0  ok
+    FP 09D             expect 005A  vdp 005B  ok
+    FP 09E             expect 0B99  vdp 0B99  ok
+    FP 09F             expect 0356  vdp 0356  ok
+  h_cor_pin = 48 (72)
+    FP 09B             expect 0A00  vdp 0A02  BAD
+    FP 09C             expect 01C3  vdp 01C3  ok
+    FP 09D             expect 0079  vdp 007A  ok
+    FP 09E             expect 0B69  vdp 0B69  ok
+    FP 09F             expect 037B  vdp 037C  ok
+  h_cor_pin = 44 (68)
+    FP 09B             expect 09F5  vdp 09F7  BAD
+    FP 09C             expect 01D4  vdp 01D4  ok
+    FP 09D             expect 0050  vdp 0051  ok
+    FP 09E             expect 0BA9  vdp 0BA9  ok
+    FP 09F             expect 034A  vdp 034A  ok
+  restored h_cor_pin = 46 (70), targets back as before
+
+calc.ew, h_sexy_pin (now E8 (-24))
+  h_sexy_pin = E8 (-24)
+    FP 09B             expect 09FB  vdp 09FC  ok
+    FP 09C             expect 01CC  vdp 01CC  ok
+    FP 09D             expect 0065  vdp 0065  ok
+    FP 09E             expect 0B89  vdp 0B89  ok
+    FP 09F             expect 0363  vdp 0363  ok
+  h_sexy_pin = E9 (-23)
+    FP 09B             expect 09FA  vdp 09FB  ok
+    FP 09C             expect 01CD  vdp 01CD  ok
+    FP 09D             expect 0063  vdp 0064  ok
+    FP 09E             expect 0B8A  vdp 0B8A  ok
+    FP 09F             expect 0363  vdp 0363  ok
+  h_sexy_pin = E7 (-25)
+    FP 09B             expect 09FB  vdp 09FD  BAD
+    FP 09C             expect 01CB  vdp 01CB  ok
+    FP 09D             expect 0066  vdp 0066  ok
+    FP 09E             expect 0B88  vdp 0B88  ok
+    FP 09F             expect 0363  vdp 0363  ok
+  h_sexy_pin = EA (-22)
+    FP 09B             expect 09F9  vdp 09FB  BAD
+    FP 09C             expect 01CE  vdp 01CD  ok
+    FP 09D             expect 0062  vdp 0063  ok
+    FP 09E             expect 0B8B  vdp 0B8B  ok
+    FP 09F             expect 0363  vdp 0363  ok
+  h_sexy_pin = E6 (-26)
+    FP 09B             expect 09FC  vdp 09FD  ok
+    FP 09C             expect 01CA  vdp 01CA  ok
+    FP 09D             expect 0067  vdp 0068  ok
+    FP 09E             expect 0B87  vdp 0B87  ok
+    FP 09F             expect 0363  vdp 0363  ok
+  restored h_sexy_pin = E8 (-24), targets back as before
+
+calc.ew, h_size (now 0CD0 (-816) OSD CD)
+  h_size = 0CD0 (-816) OSD CD
+    FP 09B             expect 09FB  vdp 09FC  ok
+    FP 09C             expect 01CC  vdp 01CC  ok
+    FP 09D             expect 0065  vdp 0065  ok
+    FP 09E             expect 0B89  vdp 0B89  ok
+    FP 09F             expect 0363  vdp 0363  ok
+  h_size = 0CE0 (-800) OSD CE
+    FP 09B             expect 0A0B  vdp 0A0C  ok
+    FP 09C             expect 01CC  vdp 01CC  ok
+    FP 09D             expect 0065  vdp 0065  ok
+    FP 09E             expect 0B89  vdp 0B89  ok
+    FP 09F             expect 0363  vdp 0363  ok
+  h_size = 0CC0 (-832) OSD CC
+    FP 09B             expect 09EB  vdp 09EC  ok
+    FP 09C             expect 01CC  vdp 01CC  ok
+    FP 09D             expect 0065  vdp 0065  ok
+    FP 09E             expect 0B89  vdp 0B89  ok
+    FP 09F             expect 0363  vdp 0363  ok
+  h_size = 0CF0 (-784) OSD CF
+    FP 09B             expect 0A1B  vdp 0A1C  ok
+    FP 09C             expect 01CC  vdp 01CC  ok
+    FP 09D             expect 0065  vdp 0065  ok
+    FP 09E             expect 0B89  vdp 0B89  ok
+    FP 09F             expect 0363  vdp 0363  ok
+  h_size = 0CB0 (-848) OSD CB
+    FP 09B             expect 09DB  vdp 09DC  ok
+    FP 09C             expect 01CC  vdp 01CC  ok
+    FP 09D             expect 0065  vdp 0065  ok
+    FP 09E             expect 0B89  vdp 0B89  ok
+    FP 09F             expect 0363  vdp 0363  ok
+  restored h_size = 0CD0 (-816) OSD CD, targets back as before
+
+calc.ew, pin_amp (now 9F (-97))
+  pin_amp = 9F (-97)
+    FP 09B             expect 09FB  vdp 09FC  ok
+    FP 09C             expect 01CC  vdp 01CC  ok
+    FP 09D             expect 0065  vdp 0065  ok
+    FP 09E             expect 0B89  vdp 0B89  ok
+    FP 09F             expect 0363  vdp 0363  ok
+  pin_amp = A0 (-96)
+    FP 09B             expect 0A05  vdp 0A06  ok
+    FP 09C             expect 01C3  vdp 01C4  ok
+    FP 09D             expect 006B  vdp 006B  ok
+    FP 09E             expect 0B89  vdp 0B89  ok
+    FP 09F             expect 0363  vdp 0363  ok
+  pin_amp = 9E (-98)
+    FP 09B             expect 09F0  vdp 09F1  ok
+    FP 09C             expect 01D4  vdp 01D5  ok
+    FP 09D             expect 005E  vdp 005E  ok
+    FP 09E             expect 0B89  vdp 0B89  ok
+    FP 09F             expect 0363  vdp 0363  ok
+  pin_amp = A1 (-95)
+    FP 09B             expect 0A10  vdp 0A11  ok
+    FP 09C             expect 01BB  vdp 01BC  ok
+    FP 09D             expect 0072  vdp 0072  ok
+    FP 09E             expect 0B89  vdp 0B89  ok
+    FP 09F             expect 0363  vdp 0363  ok
+  pin_amp = 9D (-99)
+    FP 09B             expect 09E5  vdp 09E6  ok
+    FP 09C             expect 01DD  vdp 01DD  ok
+    FP 09D             expect 0057  vdp 0057  ok
+    FP 09E             expect 0B89  vdp 0B89  ok
+    FP 09F             expect 0363  vdp 0363  ok
+  restored pin_amp = 9F (-97), targets back as before
+
+calc.ew, pin_phase (now D8 (-40))
+  pin_phase = D8 (-40)
+    FP 09B             expect 09FB  vdp 09FC  ok
+    FP 09C             expect 01CC  vdp 01CC  ok
+    FP 09D             expect 0065  vdp 0065  ok
+    FP 09E             expect 0B89  vdp 0B89  ok
+    FP 09F             expect 0363  vdp 0363  ok
+  pin_phase = D9 (-39)
+    FP 09B             expect 09F8  vdp 09F9  ok
+    FP 09C             expect 01CD  vdp 01CD  ok
+    FP 09D             expect 0065  vdp 0065  ok
+    FP 09E             expect 0B89  vdp 0B89  ok
+    FP 09F             expect 0363  vdp 0363  ok
+  pin_phase = D7 (-41)
+    FP 09B             expect 09FD  vdp 09FE  ok
+    FP 09C             expect 01CB  vdp 01CB  ok
+    FP 09D             expect 0065  vdp 0065  ok
+    FP 09E             expect 0B89  vdp 0B89  ok
+    FP 09F             expect 0363  vdp 0363  ok
+  pin_phase = DA (-38)
+    FP 09B             expect 09F5  vdp 09F6  ok
+    FP 09C             expect 01CE  vdp 01CE  ok
+    FP 09D             expect 0065  vdp 0065  ok
+    FP 09E             expect 0B89  vdp 0B89  ok
+    FP 09F             expect 0363  vdp 0363  ok
+  pin_phase = D6 (-42)
+    FP 09B             expect 0A00  vdp 0A01  ok
+    FP 09C             expect 01CA  vdp 01CA  ok
+    FP 09D             expect 0065  vdp 0065  ok
+    FP 09E             expect 0B89  vdp 0B89  ok
+    FP 09F             expect 0363  vdp 0363  ok
+  restored pin_phase = D8 (-40), targets back as before
+
+calc.ibr, brightness (now 3C (60) OSD 10)
+  brightness = 3C (60) OSD 10
+    FP 0F9             expect 0128  vdp 0128  ok
+  brightness = 3D (61) OSD 11
+    FP 0F9             expect 012C  vdp 012C  ok
+  brightness = 3B (59) OSD 9
+    FP 0F9             expect 0124  vdp 0124  ok
+  brightness = 3E (62) OSD 12
+    FP 0F9             expect 0130  vdp 0130  ok
+  brightness = 3A (58) OSD 8
+    FP 0F9             expect 0120  vdp 0120  ok
+  restored brightness = 3C (60) OSD 10, targets back as before
+
+calc.ibr, video_sbrt (now 0100 (256))
+  video_sbrt = 0100 (256)
+    FP 0F9             expect 0128  vdp 0128  ok
+  video_sbrt = 0101 (257)
+    FP 0F9             expect 0129  vdp 0129  ok
+  video_sbrt = 00FF (255)
+    FP 0F9             expect 0127  vdp 0127  ok
+  video_sbrt = 0102 (258)
+    FP 0F9             expect 012A  vdp 012A  ok
+  video_sbrt = 00FE (254)
+    FP 0F9             expect 0126  vdp 0126  ok
+  video_sbrt = 00C0 (192)
+    FP 0F9             expect 00E8  vdp 00E8  ok
+  video_sbrt = 0140 (320)
+    FP 0F9             expect 0168  vdp 0168  ok
+  restored video_sbrt = 0100 (256), targets back as before
+
+calc.abr, brightness (now 3C (60) OSD 10)
+  brightness = 3C (60) OSD 10
+    FP 0FA             expect 0128  vdp 0128  ok
+  brightness = 3D (61) OSD 11
+    FP 0FA             expect 012C  vdp 012C  ok
+  brightness = 3B (59) OSD 9
+    FP 0FA             expect 0124  vdp 0124  ok
+  brightness = 3E (62) OSD 12
+    FP 0FA             expect 0130  vdp 0130  ok
+  brightness = 3A (58) OSD 8
+    FP 0FA             expect 0120  vdp 0120  ok
+  restored brightness = 3C (60) OSD 10, targets back as before
+
+calc.abr, rgb_sbrt (now 0100 (256))
+  rgb_sbrt = 0100 (256)
+    FP 0FA             expect 0128  vdp 0128  ok
+  rgb_sbrt = 0101 (257)
+    FP 0FA             expect 0129  vdp 0129  ok
+  rgb_sbrt = 00FF (255)
+    FP 0FA             expect 0127  vdp 0127  ok
+  rgb_sbrt = 0102 (258)
+    FP 0FA             expect 012A  vdp 012A  ok
+  rgb_sbrt = 00FE (254)
+    FP 0FA             expect 0126  vdp 0126  ok
+  rgb_sbrt = 00C0 (192)
+    FP 0FA             expect 00E8  vdp 00E8  ok
+  rgb_sbrt = 0140 (320)
+    FP 0FA             expect 0168  vdp 0168  ok
+  restored rgb_sbrt = 0100 (256), targets back as before
+
+calc.act, contrast (now 0F (15))
+  contrast = 0F (15)
+    FP 0FB             expect 0070  vdp 0070  ok
+  contrast = 10 (16)
+    FP 0FB             expect 0072  vdp 0072  ok
+  contrast = 0E (14)
+    FP 0FB             expect 006E  vdp 006E  ok
+  contrast = 11 (17)
+    FP 0FB             expect 0074  vdp 0074  ok
+  contrast = 0D (13)
+    FP 0FB             expect 006C  vdp 006C  ok
+  restored contrast = 0F (15), targets back as before
+
+calc.act, rgb_cont (now 010D (269))
+  rgb_cont = 010D (269)
+    FP 0FB             expect 0070  vdp 0070  ok
+  rgb_cont = 010E (270)
+    FP 0FB             expect 0070  vdp 0070  ok
+  rgb_cont = 010C (268)
+    FP 0FB             expect 0070  vdp 0070  ok
+  rgb_cont = 010F (271)
+    FP 0FB             expect 0071  vdp 0071  ok
+  rgb_cont = 010B (267)
+    FP 0FB             expect 006F  vdp 006F  ok
+  rgb_cont = 0160 (352)
+    FP 0FB             expect 0093  vdp 0093  ok
+  restored rgb_cont = 010D (269), targets back as before
+
+calc.ctm, contrast (now 0F (15))
+  contrast = 0F (15)
+    reg 61             expect 001A  vdp 001A  ok
+  contrast = 10 (16)
+    reg 61             expect 001A  vdp 001A  ok
+  contrast = 0E (14)
+    reg 61             expect 001A  vdp 001A  ok
+  contrast = 11 (17)
+    reg 61             expect 001B  vdp 001B  ok
+  contrast = 0D (13)
+    reg 61             expect 0019  vdp 0019  ok
+  restored contrast = 0F (15), targets back as before
+
+calc.tint, phase (now 32 (50) OSD 0)
+  phase = 32 (50) OSD 0
+    FP 01C             expect 0FFF  vdp 0FFF  ok
+  phase = 33 (51) OSD 1
+    FP 01C             expect 0003  vdp 0003  ok
+  phase = 31 (49) OSD -1
+    FP 01C             expect 0FFB  vdp 0FFB  ok
+  phase = 34 (52) OSD 2
+    FP 01C             expect 0007  vdp 0007  ok
+  phase = 30 (48) OSD -2
+    FP 01C             expect 0FF7  vdp 0FF7  ok
+  restored phase = 32 (50) OSD 0, targets back as before
+
+calc.tint, tint (now FFF (-1))
+  tint = FFF (-1)
+    FP 01C             expect 0FFF  vdp 0FFF  ok
+  tint = 00 (0)
+    FP 01C             expect 0000  vdp 0FFF  BAD
+  tint = FFE (-2)
+    FP 01C             expect 0FFE  vdp 0FFF  BAD
+  tint = 01 (1)
+    FP 01C             expect 0001  vdp 0FFF  BAD
+  tint = FFD (-3)
+    FP 01C             expect 0FFD  vdp 0FFF  BAD
+  restored tint = FFF (-1), targets back as before
+
+Summary (context field 60, input rgb):
+  calc.vertical   100 ok    0 bad
+  calc.ew         119 ok    6 bad
+  calc.ibr         12 ok    0 bad
+  calc.abr         12 ok    0 bad
+  calc.act         11 ok    0 bad
+  calc.ctm          5 ok    0 bad
+  calc.tint         6 ok    4 bad
+EEPROM vs backup: 0 byte(s) differed

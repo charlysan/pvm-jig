@@ -1,0 +1,549 @@
+Volume up from 30 to 31, then down from 31 to 30
+
+sigrok-cli -d fx2lafw --config samplerate=4m --continuous --channels D0=SCL,D1=SDA --protocol-decoders i2c:address_format=shifted --protocol-decoder-annotations i2c=start:repeat-start:stop:address-read:address-write:data-read:data-write:warnings
+---
+
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 10          # start offset 0x10
+i2c-1: Data write: 1F		   # # volme 0x10 = volume 31	
+i2c-1: Data write: 01          # # Contrast
+i2c-1: Data write: 4D          # # Brighness
+i2c-1: Data write: 32          # chroma?
+i2c-1: Data write: 32          # phase?
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 18          # ?
+i2c-1: Data write: 02
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 02
+i2c-1: Data write: 01
+i2c-1: Stop
+
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 10
+i2c-1: Data write: 1E
+i2c-1: Data write: 01
+i2c-1: Data write: 4D
+i2c-1: Data write: 32
+i2c-1: Data write: 32
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 18
+i2c-1: Data write: 02
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 02
+i2c-1: Data write: 01
+i2c-1: Stop
+
+
+--- Contrast from 1 to 2, and then 2 back to 1
+
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 10
+i2c-1: Data write: 1E
+i2c-1: Data write: 02      # Contrast
+i2c-1: Data write: 4D
+i2c-1: Data write: 32
+i2c-1: Data write: 32
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 18
+i2c-1: Data write: 02
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 02
+i2c-1: Data write: 01
+i2c-1: Stop
+
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 10
+i2c-1: Data write: 1E
+i2c-1: Data write: 01
+i2c-1: Data write: 4D
+i2c-1: Data write: 32
+i2c-1: Data write: 32
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 18
+i2c-1: Data write: 02
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 02
+i2c-1: Data write: 01
+i2c-1: Stop
+
+---
+
+Brightness 27 -> 28; 28 -> 27
+
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 10
+i2c-1: Data write: 1E
+i2c-1: Data write: 01
+i2c-1: Data write: 4E      # Brightness
+i2c-1: Data write: 32
+i2c-1: Data write: 32
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 18
+i2c-1: Data write: 02
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 02
+i2c-1: Data write: 01
+i2c-1: Stop
+
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 10
+i2c-1: Data write: 1E
+i2c-1: Data write: 01
+i2c-1: Data write: 4D     # Brightness
+i2c-1: Data write: 32
+i2c-1: Data write: 32
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 18
+i2c-1: Data write: 02
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 02
+i2c-1: Data write: 01
+i2c-1: Stop
+
+
+--- system select
+
+525/60 -> auto
+
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 10
+i2c-1: Data write: 1E
+i2c-1: Data write: 01
+i2c-1: Data write: 4D
+i2c-1: Data write: 32
+i2c-1: Data write: 32
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 18
+i2c-1: Data write: 02
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 02
+i2c-1: Data write: 01
+i2c-1: Stop
+
+auto -> 525/60
+
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: C0
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 14
+i2c-1: Data read: 00
+i2c-1: Data read: F9
+i2c-1: Data read: 00
+i2c-1: Data read: 0B
+i2c-1: Data read: 00
+i2c-1: Data read: FA
+i2c-1: Data read: 30
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: C7
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 30
+i2c-1: Data read: 33
+i2c-1: Data read: 01
+i2c-1: Data read: FF
+i2c-1: Data read: FF
+i2c-1: Data read: FF
+i2c-1: Data read: FF
+i2c-1: Data read: FF
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 10
+i2c-1: Data write: 1E
+i2c-1: Data write: 01
+i2c-1: Data write: 4D
+i2c-1: Data write: 32
+i2c-1: Data write: 32
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 18
+i2c-1: Data write: 02
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 01
+i2c-1: Data write: 00
+i2c-1: Data write: 02
+i2c-1: Data write: 01
+i2c-1: Stop
+
+525/60 -> 625/50
+
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: B0
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 14
+i2c-1: Data read: 00
+i2c-1: Data read: 32
+i2c-1: Data read: 01
+i2c-1: Data read: 0B
+i2c-1: Data read: 00
+i2c-1: Data read: 00
+i2c-1: Data read: 32
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: B7
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 32
+i2c-1: Data read: 33
+i2c-1: Data read: 01
+i2c-1: Data read: FF
+i2c-1: Data read: FF
+i2c-1: Data read: FF
+i2c-1: Data read: FF
+i2c-1: Data read: FF
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 10
+i2c-1: Data write: 1E
+i2c-1: Data write: 01
+i2c-1: Data write: 4D
+i2c-1: Data write: 32
+i2c-1: Data write: 32
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 18
+i2c-1: Data write: 02
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 02
+i2c-1: Data write: 00
+i2c-1: Data write: 02
+i2c-1: Data write: 01
+i2c-1: Stop
+
+
+---
+
+chroma
+
+02 -> 03
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 10
+i2c-1: Data write: 1E
+i2c-1: Data write: 01
+i2c-1: Data write: 4D
+i2c-1: Data write: 35
+i2c-1: Data write: 32
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 18
+i2c-1: Data write: 02
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 02
+i2c-1: Stop
+
+03 - 04
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 10
+i2c-1: Data write: 1E
+i2c-1: Data write: 01
+i2c-1: Data write: 4D
+i2c-1: Data write: 36
+i2c-1: Data write: 32
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 18
+i2c-1: Data write: 02
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 02
+i2c-1: Stop
+
+
+---
+
+Switch from rgb to line B
+
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 90
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 54
+i2c-1: Data read: 02
+i2c-1: Data read: 1A
+i2c-1: Data read: 02
+i2c-1: Data read: B6
+i2c-1: Data read: 01
+i2c-1: Data read: FF
+i2c-1: Data read: 01
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 9C
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 80
+i2c-1: Data read: 01
+i2c-1: Data read: 07
+i2c-1: Data read: 00
+i2c-1: Data read: 39
+i2c-1: Data read: 03
+i2c-1: Data read: 0E
+i2c-1: Data read: 03
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: F0
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 50
+i2c-1: Data read: 70
+i2c-1: Data read: A0
+i2c-1: Data read: FF
+i2c-1: Data read: 67
+i2c-1: Data read: A2
+i2c-1: Data read: E3
+i2c-1: Data read: FF
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 10
+i2c-1: Data write: 1E
+i2c-1: Data write: 01
+i2c-1: Data write: 4D
+i2c-1: Data write: 37
+i2c-1: Data write: 32
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 18
+i2c-1: Data write: 02
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 01
+i2c-1: Data write: 02
+i2c-1: Stop
+
+
+---
+
+line B to line A
+
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 90
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 54
+i2c-1: Data read: 02
+i2c-1: Data read: 1A
+i2c-1: Data read: 02
+i2c-1: Data read: B6
+i2c-1: Data read: 01
+i2c-1: Data read: FF
+i2c-1: Data read: 01
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 9C
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 80
+i2c-1: Data read: 01
+i2c-1: Data read: 07
+i2c-1: Data read: 00
+i2c-1: Data read: 39
+i2c-1: Data read: 03
+i2c-1: Data read: 0E
+i2c-1: Data read: 03
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: F0
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 50
+i2c-1: Data read: 70
+i2c-1: Data read: A0
+i2c-1: Data read: FF
+i2c-1: Data read: 67
+i2c-1: Data read: A2
+i2c-1: Data read: E3
+i2c-1: Data read: FF
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 10
+i2c-1: Data write: 1E
+i2c-1: Data write: 01
+i2c-1: Data write: 4D
+i2c-1: Data write: 37
+i2c-1: Data write: 32
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 18
+i2c-1: Data write: 02
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 00
+i2c-1: Data write: 01
+i2c-1: Stop
+

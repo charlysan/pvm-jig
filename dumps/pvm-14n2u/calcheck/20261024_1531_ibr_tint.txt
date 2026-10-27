@@ -1,0 +1,88 @@
+Sony PVM-14N2U (CXP85220A-027S, firmware 1.x), context field 60, input video
+backup: dumps/calcheck/20261024_1531_backup.hex
+
+Plan (one item at a time, restored after each):
+  calc.ibr  brightness now 4F (79) OSD 29
+    50 (80) OSD 30 
+    4E (78) OSD 28 
+    51 (81) OSD 31 
+    4D (77) OSD 27 
+  calc.ibr  video_sbrt now 0100 (256)
+    0101 (257) 
+    00FF (255) 
+    0102 (258) 
+    00FE (254) 
+    00C0 (192) 
+    0140 (320) 
+  calc.tint  phase now 32 (50) OSD 0
+    33 (51) OSD 1 
+    31 (49) OSD -1 
+    34 (52) OSD 2 
+    30 (48) OSD -2 
+  calc.tint  tint now FFF (-1)
+    00 (0) 
+    FFE (-2) 
+    01 (1) 
+    FFD (-3) 
+18 points, about 26 reloads (156 s, one short blank each)
+
+calc.ibr, brightness (now 4F (79) OSD 29)
+  brightness = 4F (79) OSD 29
+    FP 0F9             expect 0174  vdp 0174  ok
+  brightness = 50 (80) OSD 30
+    FP 0F9             expect 0178  vdp 0178  ok
+  brightness = 4E (78) OSD 28
+    FP 0F9             expect 0170  vdp 0170  ok
+  brightness = 51 (81) OSD 31
+    FP 0F9             expect 017C  vdp 017C  ok
+  brightness = 4D (77) OSD 27
+    FP 0F9             expect 016C  vdp 016C  ok
+  restored brightness = 4F (79) OSD 29, targets back as before
+
+calc.ibr, video_sbrt (now 0100 (256))
+  video_sbrt = 0100 (256)
+    FP 0F9             expect 0174  vdp 0174  ok
+  video_sbrt = 0101 (257)
+    FP 0F9             expect 0175  vdp 0175  ok
+  video_sbrt = 00FF (255)
+    FP 0F9             expect 0173  vdp 0173  ok
+  video_sbrt = 0102 (258)
+    FP 0F9             expect 0176  vdp 0176  ok
+  video_sbrt = 00FE (254)
+    FP 0F9             expect 0172  vdp 0172  ok
+  video_sbrt = 00C0 (192)
+    FP 0F9             expect 0134  vdp 0134  ok
+  video_sbrt = 0140 (320)
+    FP 0F9             expect 01B4  vdp 01B4  ok
+  restored video_sbrt = 0100 (256), targets back as before
+
+calc.tint, phase (now 32 (50) OSD 0)
+  phase = 32 (50) OSD 0
+    FP 01C             expect 0FFF  vdp 0FFF  ok
+  phase = 33 (51) OSD 1
+    FP 01C             expect 0003  vdp 0003  ok
+  phase = 31 (49) OSD -1
+    FP 01C             expect 0FFB  vdp 0FFB  ok
+  phase = 34 (52) OSD 2
+    FP 01C             expect 0007  vdp 0007  ok
+  phase = 30 (48) OSD -2
+    FP 01C             expect 0FF7  vdp 0FF7  ok
+  restored phase = 32 (50) OSD 0, targets back as before
+
+calc.tint, tint (now FFF (-1))
+  tint = FFF (-1)
+    FP 01C             expect 0FFF  vdp 0FFF  ok
+  tint = 00 (0)
+    FP 01C             expect 0000  vdp 0000  ok
+  tint = FFE (-2)
+    FP 01C             expect 0FFE  vdp 0FFE  ok
+  tint = 01 (1)
+    FP 01C             expect 0001  vdp 0001  ok
+  tint = FFD (-3)
+    FP 01C             expect 0FFD  vdp 0FFD  ok
+  restored tint = FFF (-1), targets back as before
+
+Summary (context field 60, input video):
+  calc.ibr         12 ok    0 bad
+  calc.tint        10 ok    0 bad
+EEPROM vs backup: 0 byte(s) differed

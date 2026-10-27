@@ -1,0 +1,352 @@
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 10
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 1C
+i2c-1: Data read: 01
+i2c-1: Data read: 3D
+i2c-1: Data read: 32
+i2c-1: Data read: 32
+i2c-1: Data read: 00
+i2c-1: Data read: 00
+i2c-1: Data read: 00
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 17
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 00
+i2c-1: Data read: 02
+i2c-1: Data read: 00
+i2c-1: Data read: 00
+i2c-1: Data read: 00
+i2c-1: Data read: 00
+i2c-1: Data read: 00
+i2c-1: Data read: 02
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 1E
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 02
+i2c-1: Data read: 01
+i2c-1: Data read: 4F
+i2c-1: Data read: 00
+i2c-1: Data read: C0
+i2c-1: Data read: 0C
+i2c-1: Data read: 4F
+i2c-1: Data read: 03
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 30
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 14
+i2c-1: Data read: 00
+i2c-1: Data read: 63
+i2c-1: Data read: 00
+i2c-1: Data read: 03
+i2c-1: Data read: 01
+i2c-1: Data read: 07
+i2c-1: Data read: 00
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 37
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 00
+i2c-1: Data read: 96
+i2c-1: Data read: 00
+i2c-1: Data read: DA
+i2c-1: Data read: 01
+i2c-1: Data read: B3
+i2c-1: Data read: 01
+i2c-1: Data read: C5
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 3E
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: C5
+i2c-1: Data read: 00
+i2c-1: Data read: C3
+i2c-1: Data read: 00
+i2c-1: Data read: 6A
+i2c-1: Data read: 00
+i2c-1: Data read: 90
+i2c-1: Data read: 01
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 45
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 01
+i2c-1: Data read: 14
+i2c-1: Data read: 00
+i2c-1: Data read: 17
+i2c-1: Data read: 00
+i2c-1: Data read: DC
+i2c-1: Data read: 02
+i2c-1: Data read: 9D
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 4C
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 9D
+i2c-1: Data read: 0D
+i2c-1: Data read: 00
+i2c-1: Data read: 01
+i2c-1: Data read: 00
+i2c-1: Data read: 01
+i2c-1: Data read: 0D
+i2c-1: Data read: 01
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 50
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 00
+i2c-1: Data read: 01
+i2c-1: Data read: 0D
+i2c-1: Data read: 01
+i2c-1: Data read: 01
+i2c-1: Data read: 00
+i2c-1: Data read: 06
+i2c-1: Data read: 00
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 57
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 00
+i2c-1: Data read: D5
+i2c-1: Data read: 00
+i2c-1: Data read: D0
+i2c-1: Data read: 01
+i2c-1: Data read: 02
+i2c-1: Data read: 00
+i2c-1: Data read: 09
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 5E
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 09
+i2c-1: Data read: 00
+i2c-1: Data read: 39
+i2c-1: Data read: 00
+i2c-1: Data read: 2D
+i2c-1: Data read: 00
+i2c-1: Data read: BE
+i2c-1: Data read: 00
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 65
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 00
+i2c-1: Data read: 08
+i2c-1: Data read: 00
+i2c-1: Data read: 00
+i2c-1: Data read: 0B
+i2c-1: Data read: 00
+i2c-1: Data read: 00
+i2c-1: Data read: 00
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 6C
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 00
+i2c-1: Data read: 00
+i2c-1: Data read: 71
+i2c-1: Data read: 0D
+i2c-1: Data read: 2A
+i2c-1: Data read: 00
+i2c-1: Data read: 06
+i2c-1: Data read: 00
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 73
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 00
+i2c-1: Data read: 9C
+i2c-1: Data read: 08
+i2c-1: Data read: 7E
+i2c-1: Data read: 01
+i2c-1: Data read: 0C
+i2c-1: Data read: 02
+i2c-1: Data read: FF
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 7A
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: FF
+i2c-1: Data read: FF
+i2c-1: Data read: FF
+i2c-1: Data read: FF
+i2c-1: Data read: FF
+i2c-1: Data read: FF
+i2c-1: Data read: FF
+i2c-1: Data read: FF
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 96
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: FF
+i2c-1: Data read: 01
+i2c-1: Data read: FF
+i2c-1: Data read: 01
+i2c-1: Data read: FF
+i2c-1: Data read: 01
+i2c-1: Data read: 80
+i2c-1: Data read: 01
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 98
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: FF
+i2c-1: Data read: 01
+i2c-1: Data read: FF
+i2c-1: Data read: 01
+i2c-1: Data read: 80
+i2c-1: Data read: 01
+i2c-1: Data read: 07
+i2c-1: Data read: 00
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 20
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 4F
+i2c-1: Data read: 00
+i2c-1: Data read: C0
+i2c-1: Data read: 0C
+i2c-1: Data read: 4F
+i2c-1: Data read: 03
+i2c-1: Data read: EF
+i2c-1: Data read: D8
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: 27
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: D8
+i2c-1: Data read: 9F
+i2c-1: Data read: E8
+i2c-1: Data read: 46
+i2c-1: Data read: 70
+i2c-1: Data read: FF
+i2c-1: Data read: FF
+i2c-1: Data read: FF
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: A0
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 39
+i2c-1: Data read: 03
+i2c-1: Data read: 0E
+i2c-1: Data read: 03
+i2c-1: Data read: 35
+i2c-1: Data read: 03
+i2c-1: Data read: AD
+i2c-1: Data read: 00
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: AC
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 80
+i2c-1: Data read: 01
+i2c-1: Data read: F1
+i2c-1: Data read: 01
+i2c-1: Data read: 14
+i2c-1: Data read: 00
+i2c-1: Data read: 32
+i2c-1: Data read: 01
+i2c-1: Stop
+i2c-1: Start
+i2c-1: Write
+i2c-1: Address write: 50
+i2c-1: Data write: F4
+i2c-1: Start repeat
+i2c-1: Read
+i2c-1: Address read: 50
+i2c-1: Data read: 67
+i2c-1: Data read: A2
+i2c-1: Data read: E3
+i2c-1: Data read: FF
+i2c-1: Data read: FF
+i2c-1: Data read: FF
+i2c-1: Data read: FF
+i2c-1: Data read: FF
+i2c-1: Stop

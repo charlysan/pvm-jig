@@ -1,0 +1,27 @@
+Sony PVM-14N2U (CXP85220A-027S, firmware 1.x), context field 60, input rgb
+backup: dumps/calcheck/20261024_1202_backup.hex
+
+Plan (one item at a time, restored after each):
+  calc.ctm  contrast now 0F (15)
+    10 (16) 
+    0E (14) 
+    11 (17) 
+    0D (13) 
+4 points, about 6 reloads (36 s, one short blank each)
+
+calc.ctm, contrast (now 0F (15))
+  contrast = 0F (15)
+    reg 61             expect 001A  vdp 001A  ok
+  contrast = 10 (16)
+    reg 61             expect 001A  vdp 001A  ok
+  contrast = 0E (14)
+    reg 61             expect 001A  vdp 001A  ok
+  contrast = 11 (17)
+    reg 61             expect 001B  vdp 001B  ok
+  contrast = 0D (13)
+    reg 61             expect 0019  vdp 0019  ok
+  restored contrast = 0F (15), targets back as before
+
+Summary (context field 60, input rgb):
+  calc.ctm          5 ok    0 bad
+EEPROM vs backup: 0 byte(s) differed
