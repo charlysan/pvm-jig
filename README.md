@@ -28,6 +28,7 @@ changed, saved to the EEPROM, backed up and restored, without opening the servic
 - [Adding a monitor](#adding-a-monitor)
 - [Using the coding agent skill](#using-the-coding-agent-skill)
 - [Documentation](#documentation)
+- [Wiki](#wiki)
 - [Discussion](#discussion)
 - [Licence](#licence)
 
@@ -245,6 +246,11 @@ Start a new session afterwards; the skill shows up as `pvm-mapping`.
 - [mister.md](./mister.md): running on a MiSTer FPGA: install, command line, web panel and its API
 - [firmware/readme.txt](./firmware/readme.txt): firmware, serial protocol, wiring
 - [skill/pvm-mapping/SKILL.md](./skill/pvm-mapping/SKILL.md): entry point for coding agents
+
+
+## Wiki
+
+Project [Wiki](https://github.com/charlysan/pvm-jig/wiki) includes some pictures and covers the initial investigation and troubleshooting.
 
 ## Discussion
 
